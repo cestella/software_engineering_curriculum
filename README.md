@@ -157,6 +157,30 @@ some commits to it.  For instance, maybe you submit a pull request and
 your reviewer asks for changes.  In that case, you can merely commit
 your change (see the section above on `git commit`) and then merely `git push`.
 
-For instance
+For instance, consider this session where I am adding a change to this document, committing the change and pushing the change to my already remote branch:
 ```
+{23:47}~/code/william/software_engineering_curriculum:cstella/initial_instructions ✗ ➭ git status
+On branch cstella/initial_instructions
+Your branch is up to date with 'origin/cstella/initial_instructions'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+{23:47}~/code/william/software_engineering_curriculum:cstella/initial_instructions ✗ ➭ git add .
+{23:47}~/code/william/software_engineering_curriculum:cstella/initial_instructions ✗ ➭ git commit -a -m "Added a new section on git primer"
+[cstella/initial_instructions 8e485c0] Added a new section on git primer
+ 1 file changed, 128 insertions(+), 1 deletion(-)
+{23:47}~/code/william/software_engineering_curriculum:cstella/initial_instructions ✓ ➭ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 3.09 KiB | 3.09 MiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:cestella/software_engineering_curriculum.git
+   c3a82c8..8e485c0  cstella/initial_instructions -> cstella/initial_instructions
 ```
