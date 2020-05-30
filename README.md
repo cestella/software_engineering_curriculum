@@ -25,6 +25,7 @@ should have the following associated with it:
 * A Pull Request (visible in the `Pull Requests` Tab above)
 
 Therefore, the creation of a feature involves the following steps:
+0. Checkout master and pull the most recent changes
 1. Create a local branch of the form `wastella/<name>`
 2. Make some changes
 3. Commit those changes locally
@@ -35,6 +36,21 @@ Therefore, the creation of a feature involves the following steps:
 
 Let's see this in action here:
 ```
+# Notice, I'm in cstella/some_other_branch right now locally
+# I'm going to checkout master and pull the most recent changes
+{23:51}~/code/william/software_engineering_curriculum:cstella/some_other_branch ✓ ➭ git checkout master && git pull
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+remote: Enumerating objects: 1, done.
+remote: Counting objects: 100% (1/1), done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (1/1), 641 bytes | 641.00 KiB/s, done.
+From github.com:cestella/software_engineering_curriculum
+   2c1134f..a86125f  master     -> origin/master
+Updating 2c1134f..a86125f
+Fast-forward
+ README.md | 188 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 186 insertions(+), 2 deletions(-)
 # Notice that I'm in the `master` branch as my command line tells me
 # I'm going to create a new branch, cstella/initial_instructions
 {23:03}~/code/william/software_engineering_curriculum:master ✓ ➭ git checkout -b cstella/initial_instructions
@@ -183,4 +199,27 @@ Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
 remote: Resolving deltas: 100% (1/1), completed with 1 local object.
 To github.com:cestella/software_engineering_curriculum.git
    c3a82c8..8e485c0  cstella/initial_instructions -> cstella/initial_instructions
+```
+### `git pull`
+
+Using `git pull`, you can pull any remote changes from the repository
+into your branch. This is especially useful after you've completed a
+feature and have merged it.  In order to start a new feature, you must
+branch off of `master` and you want to ensure you get the newest
+commits.  In order to do this, you can run `git checkout master && git pull`
+which will switch to `master` via `git checkout` and then run a `git pull` to make your `master` equivalent to the remote repository's `master`:
+```
+{23:51}~/code/william/software_engineering_curriculum:cstella/initial_instructions ✓ ➭ git checkout master && git pull
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+remote: Enumerating objects: 1, done.
+remote: Counting objects: 100% (1/1), done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (1/1), 641 bytes | 641.00 KiB/s, done.
+From github.com:cestella/software_engineering_curriculum
+   2c1134f..a86125f  master     -> origin/master
+Updating 2c1134f..a86125f
+Fast-forward
+ README.md | 188 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 186 insertions(+), 2 deletions(-)
 ```
