@@ -28,7 +28,7 @@ tokens.  For the purpose of our calculator, we want to create a
 function called `lex` in `lexer.py` with takes an argument `line` and
 returns a list of tokens of the correct type like so:
 * Numbers are converted to the correct type (e.g. "1.2" is the float `1.2` whereas "1" is the int `1`)
-  * Characters which can comprise a number are digits (0-9), `-` and `.`
+  * Characters which can comprise a number are digits [`0`-`9`], `-` and `.`
 * Do not rely on spaces to separate tokens (e.g. "-1.2*2" is a valid
   input string and should return the list `[ -1.2, '*', 2 ]`
 * Negative numbers and subtraction will be hard to distinguish. Think hard about how to distinguish between a `-` sign that is part of a negative number and one which is part of subtraction. (hint: peek ahead one character)
