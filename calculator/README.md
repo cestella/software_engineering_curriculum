@@ -51,3 +51,12 @@ These test cases have been encoded in a unit test located in
 1. uncomment the assert statements in this test
 2. run it via `nosetests ./lexer_test.py`.  If there are errors, it will indicate the test case which fails.
 3. Add any new assertions that you think might be reasonable.
+
+## [ ] Create a RPN Parser
+TODO
+
+## [ ] Create a Infix to RPN Converter
+TODO
+
+## [ ] Create a Calculator CLI REPL
+TODO
