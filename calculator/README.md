@@ -7,9 +7,9 @@ code and I will review).
 
 ### Code Style
 * Variable names which are named in a readable manner (e.g. prefer `first_token` to `x`)
-* Any external dependencies are noted in the `requirements.txt` which
-  can be generated via running `pip freeze > requirements.txt` from your virtual environment.
+* Any external dependencies are noted in the `requirements.txt` which can be generated via running `pip freeze > requirements.txt` from your virtual environment.
 * The codebase should be in Python 3
+* Code should be autoformatted using `black`.  This should be as simple as running `black .` from this directory.
 
 ## [ ] Practice Pull Request
 1. Create a new python3 virtual environment in your `~/venvs` directory for this project called `~/venvs/calculator` by running `python3 -m venv ~/venvs/calculator`.
