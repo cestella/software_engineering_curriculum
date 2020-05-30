@@ -6,6 +6,10 @@ grow you as an budding engineer. Some exercises will be broad and some
 will be small.  Some will be broken down in a fine-grain and some will
 be very broad.
 
+## Projects
+
+* [ ] [Calculator](calculator/README.md)
+
 ## Rules
 There are a few rules for this repository:
 1. You are expected to use `git` and `vim` directly from the terminal
