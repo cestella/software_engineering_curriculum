@@ -36,6 +36,7 @@ returns a list of tokens of the correct type like so:
   * "*" - Multiplication
   * "+" - Addition
   * "-" - Subtraction
+  * "/" - Division
 * The following grouping symbols are supported:
   * "("
   * ")"
