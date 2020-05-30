@@ -16,7 +16,10 @@ code and I will review).
 2. Activate the virtualenv from this directory by running `source ~/venvs/calculator/bin/activate`
 3. Install the required libraries in the virtualenv by running `pip install -r requirements.txt`
 4. Edit this file (`README.md`) and put an `x` on line 14 inside the box (e.g. replace `[ ]` with `[x]`)
-5. Using the `git` and pull request primers from the main page (see [here](https://github.com/cestella/software_engineering_curriculum#pull-request-primer) create a pull request for this change
+5. Using the `git` and pull request primers from the main page (see [here](https://github.com/cestella/software_engineering_curriculum#pull-request-primer) create a pull request for this change.  
+
+Please remember to request a review from me by assigning me to your PR
+(from the Pull Request webpage).
 
 ## [ ] Create a lexer
 
