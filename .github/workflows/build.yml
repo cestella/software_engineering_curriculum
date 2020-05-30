@@ -24,10 +24,11 @@ jobs:
 
     - name: Setup Python
       uses: actions/setup-python@v2
- 
+
     - name: Black Code Formatter
       uses: lgeiger/black-action@v1.0.1
-      args: ". --check"
+      with:
+        args: ". --check"
 
     # Runs a set of commands using the runners shell
     - name: Building calculator
