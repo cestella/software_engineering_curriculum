@@ -11,7 +11,7 @@ code and I will review).
 * The codebase should be in Python 3
 * Code should be autoformatted using `black`.  This should be as simple as running `black .` from this directory.
 
-## [ ] Practice Pull Request
+## [X] Practice Pull Request
 1. Create a new python3 virtual environment in your `~/venvs` directory for this project called `~/venvs/calculator` by running `python3 -m venv ~/venvs/calculator`.
 2. Activate the virtualenv from this directory by running `source ~/venvs/calculator/bin/activate`
 3. Install the required libraries in the virtualenv by running `pip install -r requirements.txt`
