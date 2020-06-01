@@ -1,4 +1,4 @@
-def lex(s):
+def lex(line):
     """
     A lexer is a function which takes a string and turns it into a list of
     tokens.  For the purpose of our calculator, we want to create a
@@ -15,4 +15,14 @@ def lex(s):
       * "("
       * ")"
     """
-    return []
+    char_before = None
+    char_after = None
+    current_num = None
+
+    for c in line:
+        if c == int or c == ".":
+            if partial_num == None:
+                partial_num = str(c)
+            else:
+                partial_num += str(c)
+    return partial_num

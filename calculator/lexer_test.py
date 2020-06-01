@@ -4,6 +4,10 @@ from lexer import lex
 # the pass function body.
 
 
+def test_if_int():
+    assert lex("56") == "56"
+
+
 def test_basecase():
     # assert lex('1 + 1') == [ 1, '+', 1 ]
     pass
