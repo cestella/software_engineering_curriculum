@@ -11,18 +11,44 @@ def lex(line):
       * "*" - Multiplication
       * "+" - Addition
       * "-" - Subtraction
+      * "/" - Division
     * The following grouping symbols are supported:
       * "("
       * ")"
     """
+
     char_before = None
     char_after = None
-    current_num = None
+    partial_num = None
+    tokens = []
 
     for c in line:
-        if c == int or c == ".":
-            if partial_num == None:
-                partial_num = str(c)
-            else:
-                partial_num += str(c)
-    return partial_num
+        if c.isdigit() or partial_num == ".":
+                # if it is not the first char
+                #print("faa")
+                if partial_num != None:
+                    partial_num = str(c)
+                # adding this char to partial num
+                char_before = c 
+                # updating char_before
+                print('In the digit part: {}'.format(partial_num))
+        elif c in ["+", "-", "*", "/"] or c == " ":
+            # if it is an operator or a space (spaces are ignored)
+            print('In the op part: {}'.format(partial_num))
+            print(partial_num)
+            if type(partial_num) == "NoneType":
+                tokens.append(partial_num)
+            # restarting partial_num so that it appends to the token list
+            print(partial_num)
+            if c == " ":
+                tokens.append(int(partial_num))
+                partial_num = None
+            elif c in ["+", "*", "/", "-"]:
+                if c in ["+", "*", "/"]:
+                    tokens.append(c)
+                elif c == "-":
+                    if char_before == None:
+                        partial_num += str(c)
+                    elif char_before == " " or char_before.isdigit():
+                        tokens.append(partial_num)
+    return tokens

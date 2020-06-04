@@ -5,7 +5,7 @@ from lexer import lex
 
 
 def test_if_int():
-    assert lex("56") == "56"
+    assert lex("5.6 + ") == [5.6, "+"]
 
 
 def test_basecase():
