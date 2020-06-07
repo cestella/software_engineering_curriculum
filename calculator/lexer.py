@@ -16,7 +16,22 @@ def lex(line):
       * "("
       * ")"
     """
+    char_before = None
+    partial_num = None
+    tokens = []
+    
+    for c in line:
+        if c.is_digit() or c == ".":
+            if partial_num == None:
+                partial_num = c
+            else:
+                partial_num += c
 
+   
+print(lex("56 + 5"))
+
+def lex_2(line):
+    
     char_before = None
     char_after = None
     partial_num = None
@@ -25,8 +40,7 @@ def lex(line):
     for c in line:
         if c.isdigit() or partial_num == ".":
                 # if it is not the first char
-                #print("faa")
-                if partial_num != None:
+                if partial_num == None:
                     partial_num = str(c)
                 # adding this char to partial num
                 char_before = c 
@@ -41,7 +55,7 @@ def lex(line):
             # restarting partial_num so that it appends to the token list
             print(partial_num)
             if c == " ":
-                tokens.append(int(partial_num))
+                tokens.append(str(partial_num))
                 partial_num = None
             elif c in ["+", "*", "/", "-"]:
                 if c in ["+", "*", "/"]:
@@ -52,3 +66,5 @@ def lex(line):
                     elif char_before == " " or char_before.isdigit():
                         tokens.append(partial_num)
     return tokens
+
+
