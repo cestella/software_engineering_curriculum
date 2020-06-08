@@ -17,21 +17,29 @@ def lex(line):
       * ")"
     """
     char_before = None
+    # Used to figure out if "-" is negative or subtraction operator
     partial_num = None
+    # Used to store a partial number that (once ended) will be stored in tokens
     tokens = []
-    
+    # the list of tokens (final output)
+
     for c in line:
+        # iterating though chars (c) in the input (line)
         if c.is_digit() or c == ".":
+            # if c is a intager or if it is a decimal point
             if partial_num == None:
+                # if this is the first char in the partial_num
                 partial_num = c
             else:
+                # if not
                 partial_num += c
 
-   
+
 print(lex("56 + 5"))
 
+
 def lex_2(line):
-    
+
     char_before = None
     char_after = None
     partial_num = None
@@ -39,16 +47,16 @@ def lex_2(line):
 
     for c in line:
         if c.isdigit() or partial_num == ".":
-                # if it is not the first char
-                if partial_num == None:
-                    partial_num = str(c)
-                # adding this char to partial num
-                char_before = c 
-                # updating char_before
-                print('In the digit part: {}'.format(partial_num))
+            # if it is not the first char
+            if partial_num == None:
+                partial_num = str(c)
+            # adding this char to partial num
+            char_before = c
+            # updating char_before
+            print("In the digit part: {}".format(partial_num))
         elif c in ["+", "-", "*", "/"] or c == " ":
             # if it is an operator or a space (spaces are ignored)
-            print('In the op part: {}'.format(partial_num))
+            print("In the op part: {}".format(partial_num))
             print(partial_num)
             if type(partial_num) == "NoneType":
                 tokens.append(partial_num)
@@ -66,5 +74,3 @@ def lex_2(line):
                     elif char_before == " " or char_before.isdigit():
                         tokens.append(partial_num)
     return tokens
-
-
