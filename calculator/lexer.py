@@ -1,5 +1,12 @@
-# Function to convert a string to an int or a float depending on which one is appropriate
-def convert(s):
+ops = ["+", "-", "*", "/"]
+ops_without_subtraction = ["+", "*", "/"]
+
+
+def convert_string(s):
+    """Convert_string function converts a string to a float or a int, depending on whether it has a decimal point or not
+       Input: s (Type: String)
+       Output: float or int conversion of  "s"
+"""
     # If there is a decimal point it is a float so we
     if "." in s:
         return float(s)
@@ -92,12 +99,12 @@ def lex(line):
             # If the char_after is a operator or a parenthesis:
             if is_op(char_after) == True or is_parenthisis(char_after) == True:
                 # If this condition is true then we know that the number or decimal is done.
-                tokens.append(convert(partial_num))
+                tokens.append(convert_string(partial_num))
                 # Then we have to reset partial_num.
                 partial_num = None
             # We do the same as the above if statement, if it is the end of the line.
             elif i == len(stripped_line) - 1:
-                tokens.append(convert(partial_num))
+                tokens.append(convert_string(partial_num))
                 partial_num = None
 
         # If c is a negative sign or a subtraction operator:
