@@ -56,7 +56,37 @@ These test cases have been encoded in a unit test located in
 3. Add any new assertions that you think might be reasonable.
 
 ## [ ] Create a RPN Parser
-TODO
+Now that you have a lexer which will convert strings into tokens, we have to DO something with those tokens.  
+Since we're creating a calculator here, we should actually write a parser.  Before we do that, let's talk a bit
+about the different types of mathematical notation.
+
+### Mathematical Notation
+A notation system is a way of expressing a mathematical expression.  The normal one that you've learned in school is called
+"infix" because the operators fall between the operands (e.g. `1 + 1`).  While this is very convenient for us to understand,
+it's not as convenient for a computer to parse.  This is because as you read the tokens `[ 1, '+', 1]` from left-to-right,
+when you get to the operator `+` you don't have all of the information that you need to calculate.  Furthermore, because the
+order of operations are ambiguous, we had to construct things like parenthesis to disambiguate!  All of this is non-trivial
+for a parser.  There HAS to be a better, more clear way!
+
+### Reverse Polish Notation
+It turns out, if we reconsider the mathematical notation, we can construct an arrangement which still represents the same
+set of mathematical expressions, but is easier to parse: [Reverse Polish Notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation).
+
+Reverse Polish Notation, otherwise known as "postfix notation" or RPN (for short), is a way of writing mathematical expressions in which the
+operands follow the operator. For instance, whereas `1 + 1` is infix, the equivalent in RPN would be `1 1 +`.
+As you can see, when we get to the `+` operator in the RPN tokens (`[ 1, 1, '+' ]` in this case), we would have everything
+that we need to know to perform the calculation.  Even better, there is no need for parenthesis in this system as the order of operations is entirely unambiguous and encoded in the notation itself.  
+For instance, if we were to consider the RPN expression `4 5 * 3 -` it is clear that this is `(4 * 5) - 3`
+
+There's a trick to parsing RPN, but I'm not going to tell you much about it.  Instead, I'm going to leave you with this very big hint: Sometimes programming languages who use RPN-style notation are called stack-languages.  
+1. How might you use a stack to parse a RPN expression?
+2. Write on your whiteboard a few expressions and their answers.  How are YOU solving them in your head?  How could you use the stack data structure to teach a computer how to recreate your internal processes?
+
+## Your Task
+Your task for this PR is to create a Reverse Polish Notation Parser:
+1. Create a new file called `parser.py` next to `lexer.py` and create a function called `rpn` which will take in a list of
+tokens and return the computed answer.  For instance, `assert rpn( lex('1 1 +') ) == 2` should be true.
+2. Create a new file called `parser_test.py` where you will add a set of representative test cases (the example I made in 1 should be one of them).
 
 ## [ ] Create a Infix to RPN Converter
 TODO
