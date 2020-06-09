@@ -16,11 +16,13 @@
       * ")"
 """
 
+
 def convert(s):
-    if '.' in s:
+    if "." in s:
         return float(s)
     else:
         return int(s)
+
 
 def lex(line):
 
@@ -30,50 +32,53 @@ def lex(line):
     tokens = []
     stripped_line = line.replace(" ", "")
     print(stripped_line + " : " + line)
-    
+
     for i in range(0, len(stripped_line)):
         c = stripped_line[i]
         if i != 0:
-            char_before = stripped_line[i-1]
+            char_before = stripped_line[i - 1]
         else:
             char_before = None
         if i == len(stripped_line) - 1:
             char_after = None
         else:
-            char_after = stripped_line[i+1]
-        
+            char_after = stripped_line[i + 1]
+
         if c.isdigit() or c == ".":
             if partial_num == None:
                 partial_num = str(c)
-                    # adding this char to partial num
+                # adding this char to partial num
             else:
                 partial_num += str(c)
-                
-            if char_after in ["+", "-", "*", "/"]:
+
+            if char_after in ["+", "-", "*", "/", "(", ")"]:
                 tokens.append(convert(partial_num))
                 partial_num = None
-            
+
             elif i == len(stripped_line) - 1:
                 tokens.append(convert(partial_num))
                 partial_num = None
-                
-                #print("In the digit part: {}".format(partial_num))
-          
-                    
+
+                # print("In the digit part: {}".format(partial_num))
+
         elif c == "-":
             if stripped_line[0] == c:
                 partial_num = str(c)
-            elif char_before.isdigit():
+            elif char_before.isdigit() or char_before in ["(", ")"]:
                 tokens.append(c)
             elif char_before in ["+", "*", "-", "/"]:
-                partial_num = c 
-        elif c in ["+","*", "/"]:
+                partial_num = c
+        elif c in ["+", "*", "/"]:
             # if it is an operator or a space (spaces are ignored)
-            #print("In the op part: {}".format(partial_num))
+            # print("In the op part: {}".format(partial_num))
+            tokens.append(c)
+        elif c in [")", "("]:
             tokens.append(c)
 
     return tokens
 
+
 print(lex("1 - -1"))
 print(lex("5.6 + 1"))
-print(lex("-1.2*2"))
+print(lex("-1.2*(2-1)"))
+print(lex("(2 + 3) - 3.2"))
