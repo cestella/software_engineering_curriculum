@@ -28,47 +28,52 @@ def lex(line):
     char_after = None
     partial_num = None
     tokens = []
+    stripped_line = line.replace(" ", "")
+    print(stripped_line + " : " + line)
     
-    for c in line:
+    for i in range(0, len(stripped_line)):
+        c = stripped_line[i]
+        if i != 0:
+            char_before = stripped_line[i-1]
+        else:
+            char_before = None
+        if i == len(stripped_line) - 1:
+            char_after = None
+        else:
+            char_after = stripped_line[i+1]
+        
         if c.isdigit() or c == ".":
-            if c != line[-1]:
-                # if it is not the first char
-                if partial_num == None:
-                    partial_num = str(c)
+            if partial_num == None:
+                partial_num = str(c)
                     # adding this char to partial num
-                    char_before = c
-                else:
-                    partial_num += str(c)
-                 # updating char_before
-                print("In the digit part: {}".format(partial_num))
             else:
-                # if it is not the first char
-                if partial_num == None:
-                    partial_num = str(c)
-                    # adding this char to partial num
-                    char_before = c
-                else:
-                    partial_num += str(c)
-                    # updating char_before
-                print("In the digit part: {}".format(partial_num))
+                partial_num += str(c)
+                
+            if char_after in ["+", "-", "*", "/"]:
                 tokens.append(convert(partial_num))
+                partial_num = None
             
+            elif i == len(stripped_line) - 1:
+                tokens.append(convert(partial_num))
+                partial_num = None
+                
+                #print("In the digit part: {}".format(partial_num))
+          
                     
         elif c == "-":
-            if line[0] == c:
+            if stripped_line[0] == c:
                 partial_num = str(c)
             elif char_before.isdigit():
                 tokens.append(c)
+            elif char_before in ["+", "*", "-", "/"]:
+                partial_num = c 
         elif c in ["+","*", "/"]:
             # if it is an operator or a space (spaces are ignored)
-            print("In the op part: {}".format(partial_num))
-            #tokens.append(convert(partial_num))
-            #partial_num = None
-            if type(partial_num) == "NoneType":
-                tokens.append(partial_num)
+            #print("In the op part: {}".format(partial_num))
             tokens.append(c)
-            char_before = c
 
     return tokens
 
+print(lex("1 - -1"))
+print(lex("5.6 + 1"))
 print(lex("-1.2*2"))
