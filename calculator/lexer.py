@@ -7,31 +7,37 @@ def convert_string(s):
        Input: s (Type: String)
        Output: float or int conversion of  "s"
 """
-    # If there is a decimal point it is a float so we
     if "." in s:
         return float(s)
     else:
         return int(s)
 
-
-# If the char is an operator
 def is_op(char):
-    if char in ["+", "-", "*", "/"]:
+    """is_op fuction figures out whether the input is an operator
+       Input: char (Type: String)
+       Output: True/False (Type: Boolean)
+    """
+    if char in ops:
         return True
     else:
         return False
 
 
-# If the char is an operator but not subtraction
 def is_op_not_subtract(char):
-    if char in ["+", "*", "/"]:
+    """is_op_not_subtract is the same as is_op() but it excludes subtraction ("-")
+       Input: char (Type: String)
+       Output: True/False
+    """
+    if char in ops_without_subtraction:
         return True
     else:
         return False
 
-
-# If the char is a parenthisis
-def is_parenthisis(char):
+def is_parenthesis(char):
+    """is_parenthesis() checks if a char is a parenthesis
+       Input: char (Type: String)
+       Output: True/False
+"""
     if char in ["(", ")"]:
         return True
     else:
@@ -97,7 +103,7 @@ def lex(line):
             else:
                 partial_num += str(c)
             # If the char_after is a operator or a parenthesis:
-            if is_op(char_after) == True or is_parenthisis(char_after) == True:
+            if is_op(char_after) == True or is_parenthesis(char_after) == True:
                 # If this condition is true then we know that the number or decimal is done.
                 tokens.append(convert_string(partial_num))
                 # Then we have to reset partial_num.
@@ -114,7 +120,7 @@ def lex(line):
                 # If it is the first char then we know it is part of a number because a subtraction sign is a binary operator and it takes 2 params.
                 partial_num = str(c)
             # If the char_before is a digit or a parenthisis
-            elif char_before.isdigit() or is_parenthisis(char_before) == True:
+            elif char_before.isdigit() or is_parenthesis(char_before) == True:
                 # If the char_before is a digit or a parenthisis then we know that it is a subtraction operator because if it is a digit then it would be, "5-5" and that is a subtraction, also, "5-(5+5)" then it is a subtraction.
                 tokens.append(c)
             # If the char_before is a operator:
@@ -126,7 +132,7 @@ def lex(line):
             # Add the operator to the tokens list
             tokens.append(c)
         # if c is a parenthisis:
-        elif is_parenthisis(c) == True:
+        elif is_parenthesis(c) == True:
             # Add parenthisis to the tokens list
             tokens.append(c)
 
