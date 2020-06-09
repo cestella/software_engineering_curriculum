@@ -1,5 +1,4 @@
-def lex(line):
-    """
+"""
     A lexer is a function which takes a string and turns it into a list of
     tokens.  For the purpose of our calculator, we want to create a
     function called `lex` in `lexer.py` with takes an argument `line` and
@@ -15,62 +14,61 @@ def lex(line):
     * The following grouping symbols are supported:
       * "("
       * ")"
-    """
-    char_before = None
-    # Used to figure out if "-" is negative or subtraction operator
-    partial_num = None
-    # Used to store a partial number that (once ended) will be stored in tokens
-    tokens = []
-    # the list of tokens (final output)
+"""
 
-    for c in line:
-        # iterating though chars (c) in the input (line)
-        if c.is_digit() or c == ".":
-            # if c is a intager or if it is a decimal point
-            if partial_num == None:
-                # if this is the first char in the partial_num
-                partial_num = c
-            else:
-                # if not
-                partial_num += c
+def convert(s):
+    if '.' in s:
+        return float(s)
+    else:
+        return int(s)
 
-
-print(lex("56 + 5"))
-
-
-def lex_2(line):
+def lex(line):
 
     char_before = None
     char_after = None
     partial_num = None
     tokens = []
-
+    
     for c in line:
-        if c.isdigit() or partial_num == ".":
-            # if it is not the first char
-            if partial_num == None:
+        if c.isdigit() or c == ".":
+            if c != line[-1]:
+                # if it is not the first char
+                if partial_num == None:
+                    partial_num = str(c)
+                    # adding this char to partial num
+                    char_before = c
+                else:
+                    partial_num += str(c)
+                 # updating char_before
+                print("In the digit part: {}".format(partial_num))
+            else:
+                # if it is not the first char
+                if partial_num == None:
+                    partial_num = str(c)
+                    # adding this char to partial num
+                    char_before = c
+                else:
+                    partial_num += str(c)
+                    # updating char_before
+                print("In the digit part: {}".format(partial_num))
+                tokens.append(convert(partial_num))
+            
+                    
+        elif c == "-":
+            if line[0] == c:
                 partial_num = str(c)
-            # adding this char to partial num
-            char_before = c
-            # updating char_before
-            print("In the digit part: {}".format(partial_num))
-        elif c in ["+", "-", "*", "/"] or c == " ":
+            elif char_before.isdigit():
+                tokens.append(c)
+        elif c in ["+","*", "/"]:
             # if it is an operator or a space (spaces are ignored)
             print("In the op part: {}".format(partial_num))
-            print(partial_num)
+            #tokens.append(convert(partial_num))
+            #partial_num = None
             if type(partial_num) == "NoneType":
                 tokens.append(partial_num)
-            # restarting partial_num so that it appends to the token list
-            print(partial_num)
-            if c == " ":
-                tokens.append(str(partial_num))
-                partial_num = None
-            elif c in ["+", "*", "/", "-"]:
-                if c in ["+", "*", "/"]:
-                    tokens.append(c)
-                elif c == "-":
-                    if char_before == None:
-                        partial_num += str(c)
-                    elif char_before == " " or char_before.isdigit():
-                        tokens.append(partial_num)
+            tokens.append(c)
+            char_before = c
+
     return tokens
+
+print(lex("-1.2*2"))

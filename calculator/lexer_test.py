@@ -9,18 +9,15 @@ def test_if_int():
 
 
 def test_basecase():
-    # assert lex('1 + 1') == [ 1, '+', 1 ]
-    pass
+    assert lex('1 + 1') == [ 1, '+', 1 ]
 
 
 def test_negative_weirdness():
-    # assert lex('1 - -1') == [ 1, '-', -1 ]
-    pass
+    assert lex('1 - -1') == [ 1, '-', -1 ]
 
 
 def test_no_space():
-    # assert lex('-1.2*2') == [ -1.2, '*', 2 ]
-    pass
+    assert lex('-1.2*2') == [ -1.2, '*', 2 ]
 
 
 def test_parens():
