@@ -71,25 +71,23 @@ def lex(line):
     partial_num = None
     # List that stores the tokens
     tokens = []
-    # Stripping the input line of spaces
-    stripped_line = line.replace(" ", "")
 
     # Iterating through each index in my stripped_line
-    for i in range(0, len(stripped_line)):
+    for i in range(0, len(line)):
         # Defining "c" as the char at the index "i" in stripped_line
-        c = stripped_line[i]
+        c = line[i]
         # Defining char_before but if i is the first index then the index will be invalid
         if i != 0:
             # Char_before is the current char's index (i), but subtracting 1 because it is 1 before
-            char_before = stripped_line[i - 1]
+            char_before = line[i - 1]
         else:
             # if i is the first index then char_before is None
             char_before = None
 
         # Catching the same error as the first if statement but if i is the last index
-        if i != len(stripped_line) - 1:
+        if i != len(line) - 1:
             # Char_after is the current char's index (i), but adding 1 because it is 1 after
-            char_after = stripped_line[i + 1]
+            char_after = line[i + 1]
         else:
             # If i is the last index then char_after is None
             char_after = None
@@ -102,31 +100,31 @@ def lex(line):
                 # adding this char to partial num
             else:
                 partial_num += str(c)
+                print(partial_num)
             # If the char_after is a operator or a parenthesis:
-            if is_op(char_after) == True or is_parenthesis(char_after) == True:
+            if is_op(char_after) == True or is_parenthesis(char_after) == True or char_after == " ":
                 # If this condition is true then we know that the number or decimal is done.
                 tokens.append(convert_string(partial_num))
                 # Then we have to reset partial_num.
                 partial_num = None
             # We do the same as the above if statement, if it is the end of the line.
-            elif i == len(stripped_line) - 1:
+            elif i == len(line) - 1:
                 tokens.append(convert_string(partial_num))
                 partial_num = None
 
-        # If c is a negative sign or a subtraction operator:
         elif c == "-":
-            # If it is the first char in the line:
-            if stripped_line[0] == c:
-                # If it is the first char then we know it is part of a number because a subtraction sign is a binary operator and it takes 2 params.
-                partial_num = str(c)
-            # If the char_before is a digit or a parenthisis
-            elif char_before.isdigit() or is_parenthesis(char_before) == True:
-                # If the char_before is a digit or a parenthisis then we know that it is a subtraction operator because if it is a digit then it would be, "5-5" and that is a subtraction, also, "5-(5+5)" then it is a subtraction.
-                tokens.append(c)
-            # If the char_before is a operator:
-            elif is_op(char_before) == True:
-                # If the char_before is an operator then we know it is part of a number
-                partial_num = c
+            if char_before != None and char_after != None:     
+                if char_before.isdigit() and char_after.isdigit():
+                   tokens.append(c) 
+        
+                elif is_op(char_before) == True or is_parenthesis(char_before) == True or char_after == " ":
+                    tokens.append(c)
+                    print("Char before is not a digit")
+
+                elif is_op(char_before) == True :
+                    partial_num += str(c)
+                    print(partial_num) 
+            
         # if c is an operator:
         elif is_op_not_subtract(c) == True:
             # Add the operator to the tokens list
@@ -140,6 +138,6 @@ def lex(line):
 
 
 print(lex("1 - -1"))
-print(lex("5.6 + 1"))
+print(lex("5.6 - 1"))
 print(lex("-1.2*(2-1)"))
 print(lex("(2 + 3) - 3.2"))
