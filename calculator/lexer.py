@@ -112,19 +112,33 @@ def lex(line):
                 tokens.append(convert_string(partial_num))
                 partial_num = None
 
-        elif c == "-":
-            if char_before != None and char_after != None:     
+        elif c == "-":    
+            if char_before != None and char_after != None:
                 if char_before.isdigit() and char_after.isdigit():
-                   tokens.append(c) 
-        
-                elif is_op(char_before) == True or is_parenthesis(char_before) == True or char_after == " ":
                     tokens.append(c)
-                    print("Char before is not a digit")
+    
+                elif char_after.isdigit():
+                    partial_num = str(c)  
+        
+            elif char_before == " " and char_after == " ":
+                tokens.append(c)
+                print("here")                
 
-                elif is_op(char_before) == True :
-                    partial_num += str(c)
-                    print(partial_num) 
+
+            elif is_op(char_before) == True or is_parenthesis(char_before) == True or char_after == " ":
+                tokens.append(c)
+                print("Char before is not a digit")
+
+            elif is_op(char_before) == True :
+                partial_num += str(c)
+                print(partial_num)
+                
             
+                    
+            elif i == 0:
+                partial_num = str(c)
+                print("Here")
+    
         # if c is an operator:
         elif is_op_not_subtract(c) == True:
             # Add the operator to the tokens list
@@ -136,8 +150,8 @@ def lex(line):
 
     return tokens
 
-
+print(lex("-1.2*2"))
 print(lex("1 - -1"))
-print(lex("5.6 - 1"))
+print(lex("5.6-1"))
 print(lex("-1.2*(2-1)"))
 print(lex("(2 + 3) - 3.2"))
