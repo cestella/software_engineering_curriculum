@@ -12,6 +12,7 @@ def convert_string(s):
     else:
         return int(s)
 
+
 def is_op(char):
     """is_op fuction figures out whether the input is an operator
        Input: char (Type: String)
@@ -32,6 +33,7 @@ def is_op_not_subtract(char):
         return True
     else:
         return False
+
 
 def is_parenthesis(char):
     """is_parenthesis() checks if a char is a parenthesis
@@ -102,7 +104,11 @@ def lex(line):
                 partial_num += str(c)
                 print(partial_num)
             # If the char_after is a operator or a parenthesis:
-            if is_op(char_after) == True or is_parenthesis(char_after) == True or char_after == " ":
+            if (
+                is_op(char_after) == True
+                or is_parenthesis(char_after) == True
+                or char_after == " "
+            ):
                 # If this condition is true then we know that the number or decimal is done.
                 tokens.append(convert_string(partial_num))
                 # Then we have to reset partial_num.
@@ -112,33 +118,34 @@ def lex(line):
                 tokens.append(convert_string(partial_num))
                 partial_num = None
 
-        elif c == "-":    
+        elif c == "-":
             if char_before != None and char_after != None:
                 if char_before.isdigit() and char_after.isdigit():
                     tokens.append(c)
-    
+
                 elif char_after.isdigit():
-                    partial_num = str(c)  
-        
+                    partial_num = str(c)
+
             elif char_before == " " and char_after == " ":
                 tokens.append(c)
-                print("here")                
+                print("here")
 
-
-            elif is_op(char_before) == True or is_parenthesis(char_before) == True or char_after == " ":
+            elif (
+                is_op(char_before) == True
+                or is_parenthesis(char_before) == True
+                or char_after == " "
+            ):
                 tokens.append(c)
                 print("Char before is not a digit")
 
-            elif is_op(char_before) == True :
+            elif is_op(char_before) == True:
                 partial_num += str(c)
                 print(partial_num)
-                
-            
-                    
+
             elif i == 0:
                 partial_num = str(c)
                 print("Here")
-    
+
         # if c is an operator:
         elif is_op_not_subtract(c) == True:
             # Add the operator to the tokens list
@@ -149,6 +156,7 @@ def lex(line):
             tokens.append(c)
 
     return tokens
+
 
 print(lex("-1.2*2"))
 print(lex("1 - -1"))
