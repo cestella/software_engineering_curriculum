@@ -100,20 +100,29 @@ def lex(line):
                 # Partial_num is equal to c instead of partial_num is the original value but c added on.
                 partial_num = str(c)
                 # adding this char to partial num
+                if is_op(char_after) or is_parenthesis(char_after) or char_after == " ":
+                # If this condition is true then we know that the number or decimal is done.
+                    print(partial_num) 
+                    tokens.append(convert_string(partial_num))
+                    # Then we have to reset partial_num.
+                    partial_num = None
+                    # We do the same as the above if statement, if it is the end of the line.
+                elif i == len(stripped_line) - 1:
+                    tokens.append(convert_string(partial_num))
+                    partial_num = None
             else:
                 partial_num += str(c)
-            print(partial_num)
+                print(partial_num)
             # If the char_after is a operator or a parenthesis:
-            if is_op(char_after) or is_parenthesis(char_after) or char_after == " ":
+                if is_op(char_after) or is_parenthesis(char_after) or char_after == " ":
                 # If this condition is true then we know that the number or decimal is done.
-                
-                tokens.append(convert_string(partial_num))
-                # Then we have to reset partial_num.
-                partial_num = None
-                # We do the same as the above if statement, if it is the end of the line.
-            elif i == len(stripped_line) - 1:
-                tokens.append(convert_string(partial_num))
-                partial_num = None
+                    tokens.append(convert_string(partial_num))
+                    # Then we have to reset partial_num.
+                    partial_num = None
+                    # We do the same as the above if statement, if it is the end of the line.
+                elif i == len(stripped_line) - 1:
+                    tokens.append(convert_string(partial_num))
+                    partial_num = None
 
         # If c is a negative sign or a subtraction operator:
         elif c == "-":
