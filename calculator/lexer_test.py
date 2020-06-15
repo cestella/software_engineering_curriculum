@@ -25,4 +25,5 @@ def test_parens():
 
 
 def test_RPN():
+    print("Lex: ".format(lex("1 1 +")))
     assert lex("1 1 +") == [1, 1, "+"]

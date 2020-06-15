@@ -12,6 +12,7 @@ def convert_string(s):
     else:
         return int(s)
 
+
 def is_op(char):
     """is_op fuction figures out whether the input is an operator
        Input: char (Type: String)
@@ -32,6 +33,7 @@ def is_op_not_subtract(char):
         return True
     else:
         return False
+
 
 def is_parenthesis(char):
     """is_parenthesis() checks if a char is a parenthesis
@@ -72,7 +74,7 @@ def lex(line):
     # List that stores the tokens
     tokens = []
     # Stripping the input line of spaces
-    stripped_line = line.replace(" ", "")
+    stripped_line = line
 
     # Iterating through each index in my stripped_line
     for i in range(0, len(stripped_line)):
@@ -99,31 +101,20 @@ def lex(line):
             if partial_num == None:
                 # Partial_num is equal to c instead of partial_num is the original value but c added on.
                 partial_num = str(c)
-                # adding this char to partial num
-                if is_op(char_after) or is_parenthesis(char_after) or char_after == " ":
-                # If this condition is true then we know that the number or decimal is done.
-                    print(partial_num) 
-                    tokens.append(convert_string(partial_num))
-                    # Then we have to reset partial_num.
-                    partial_num = None
-                    # We do the same as the above if statement, if it is the end of the line.
-                elif i == len(stripped_line) - 1:
-                    tokens.append(convert_string(partial_num))
-                    partial_num = None
             else:
                 partial_num += str(c)
-                print(partial_num)
             # If the char_after is a operator or a parenthesis:
-                if is_op(char_after) or is_parenthesis(char_after) or char_after == " ":
+            if (
+                is_op(char_after)
+                or is_parenthesis(char_after)
+                or char_after == " "
+                or i == len(stripped_line) - 1
+            ):
                 # If this condition is true then we know that the number or decimal is done.
-                    tokens.append(convert_string(partial_num))
-                    # Then we have to reset partial_num.
-                    partial_num = None
-                    # We do the same as the above if statement, if it is the end of the line.
-                elif i == len(stripped_line) - 1:
-                    tokens.append(convert_string(partial_num))
-                    partial_num = None
-
+                tokens.append(convert_string(partial_num))
+                # Then we have to reset partial_num.
+                partial_num = None
+                # We do the same as the above if statement, if it is the end of the line.
         # If c is a negative sign or a subtraction operator:
         elif c == "-":
             # If it is the first char in the line:
@@ -131,28 +122,23 @@ def lex(line):
                 # If it is the first char then we know it is part of a number because a subtraction sign is a binary operator and it takes 2 params.
                 partial_num = str(c)
             # If the char_before is a digit or a parenthisis
-            elif char_before.isdigit() or is_parenthesis(char_before) or char_after == ' ':
+            elif (
+                char_before.isdigit()
+                or is_parenthesis(char_before)
+                or char_after == " "
+            ):
                 # If the char_before is a digit or a parenthisis then we know that it is a subtraction operator because if it is a digit then it would be, "5-5" and that is a subtraction, also, "5-(5+5)" then it is a subtraction.
                 tokens.append(c)
-            # If the char_before is a operator:
-            elif is_op(char_before) == True:
+            elif is_op(char_before) or char_before == " ":
                 # If the char_before is an operator then we know it is part of a number
                 partial_num = c
-        # if c is an operator:
-        elif is_op_not_subtract(c) == True:
+
+        elif is_op_not_subtract(c):
             # Add the operator to the tokens list
             tokens.append(c)
-        # if c is a parenthisis:
-        elif is_parenthesis(c) == True:
+
+        elif is_parenthesis(c):
             # Add parenthisis to the tokens list
             tokens.append(c)
 
     return tokens
-
-"""
-print(lex("1 - -1"))
-print(lex("5.6 + 1"))
-print(lex("-1.2*(2-1)"))
-print(lex("(2 + 3) - 3.2"))
-"""
-print(lex("1 1 +"))
