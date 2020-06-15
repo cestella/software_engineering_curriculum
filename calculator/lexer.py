@@ -1,6 +1,16 @@
 ops = ["+", "-", "*", "/"]
 ops_without_subtraction = ["+", "*", "/"]
 
+def is_numeric_char(char):
+    """
+    is_numeric_char checks if a char is a number or a decimal point.
+    Input: char 
+    Output: True or False
+    """
+    if char.isdigit() or char == ".":
+        return True
+    else:
+        return False
 
 def convert_string(s):
     """Convert_string function converts a string to a float or a int, depending on whether it has a decimal point or not
@@ -96,7 +106,7 @@ def lex(line):
             # If i is the last index then char_after is None
             char_after = None
         # If c (current char), is a digit or a decimal point. If c is a int or a float:
-        if c.isdigit() or c == ".":
+        if is_numeric_char(c):
             # If c is the first iteration:
             if partial_num == None:
                 # Partial_num is equal to c instead of partial_num is the original value but c added on.
@@ -115,10 +125,10 @@ def lex(line):
                 # Then we have to reset partial_num.
                 partial_num = None
                 # We do the same as the above if statement, if it is the end of the line.
-        # If c is a negative sign or a subtraction operator:
+
         elif c == "-":
             # If it is the first char in the line:
-            if stripped_line[0] == c:
+            if i == 0:
                 # If it is the first char then we know it is part of a number because a subtraction sign is a binary operator and it takes 2 params.
                 partial_num = str(c)
             # If the char_before is a digit or a parenthisis
