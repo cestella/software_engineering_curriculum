@@ -1,6 +1,7 @@
 ops = ["+", "-", "*", "/"]
 ops_without_subtraction = ["+", "*", "/"]
 
+
 def is_numeric_char(char):
     """
     is_numeric_char checks if a char is a number or a decimal point.
@@ -11,6 +12,7 @@ def is_numeric_char(char):
         return True
     else:
         return False
+
 
 def convert_string(s):
     """Convert_string function converts a string to a float or a int, depending on whether it has a decimal point or not
