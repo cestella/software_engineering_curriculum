@@ -1,5 +1,5 @@
-ops = ["+", "-", "*", "/"]
-ops_without_subtraction = ["+", "*", "/"]
+OPS = ["+", "-", "*", "/"]
+OPS_WITHOUT_SUBTRACTION = ["+", "*", "/"]
 
 
 def is_numeric_char(char):
@@ -8,10 +8,7 @@ def is_numeric_char(char):
     Input: char 
     Output: True or False
     """
-    if char.isdigit() or char == ".":
-        return True
-    else:
-        return False
+    return char.isdigit() or char == "." 
 
 
 def convert_string(s):
@@ -30,10 +27,7 @@ def is_op(char):
        Input: char (Type: String)
        Output: True/False (Type: Boolean)
     """
-    if char in ops:
-        return True
-    else:
-        return False
+    return char in OPS
 
 
 def is_op_not_subtract(char):
@@ -41,10 +35,7 @@ def is_op_not_subtract(char):
        Input: char (Type: String)
        Output: True/False
     """
-    if char in ops_without_subtraction:
-        return True
-    else:
-        return False
+    return char in OPS_WITHOUT_SUBTRACTION 
 
 
 def is_parenthesis(char):
@@ -86,7 +77,7 @@ def lex(line):
     # List that stores the tokens
     tokens = []
     # Stripping the input line of spaces
-    stripped_line = line
+    stripped_line = strip(line)
 
     # Iterating through each index in my stripped_line
     for i in range(0, len(stripped_line)):
@@ -94,15 +85,12 @@ def lex(line):
         c = stripped_line[i]
         # Defining char_before but if i is the first index then the index will be invalid
         if i != 0:
-            # Char_before is the current char's index (i), but subtracting 1 because it is 1 before
             char_before = stripped_line[i - 1]
         else:
-            # if i is the first index then char_before is None
             char_before = None
 
-        # Catching the same error as the first if statement but if i is the last index
+        # Catching the index error if i is the last iteration:
         if i != len(stripped_line) - 1:
-            # Char_after is the current char's index (i), but adding 1 because it is 1 after
             char_after = stripped_line[i + 1]
         else:
             # If i is the last index then char_after is None
@@ -111,7 +99,6 @@ def lex(line):
         if is_numeric_char(c):
             # If c is the first iteration:
             if partial_num == None:
-                # Partial_num is equal to c instead of partial_num is the original value but c added on.
                 partial_num = str(c)
             else:
                 partial_num += str(c)
