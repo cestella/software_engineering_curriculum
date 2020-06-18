@@ -150,7 +150,7 @@ def lex(line):
 
         if is_numeric_char(c):
             # If c is the first iteration:
-            if is_first_iteration:
+            if partial_num == None:
                 partial_num = str(c)
             else:
                 partial_num += str(c)
