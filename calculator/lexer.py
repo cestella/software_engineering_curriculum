@@ -77,17 +77,19 @@ def lex(line):
     # List that stores the tokens
     tokens = []
     # Stripping the input line of spaces
-    stripped_line = strip(line)
+    stripped_line = line.strip()
 
     # Iterating through each index in my stripped_line
     for i in range(0, len(stripped_line)):
         # Defining "c" as the char at the index "i" in stripped_line
         c = stripped_line[i]
         # Defining is_first_iteration:
-        is_first_iteration = c == None
+        is_first_iteration = i == 0
+        print(is_first_iteration)
         # Defining char_before but if i is the first index then the index will be invalid
-        if is_first_iteration:
+        if not is_first_iteration:
             char_before = stripped_line[i - 1]
+            print(char_before)
         else:
             char_before = None
 
@@ -129,17 +131,19 @@ def lex(line):
             if is_first_iteration:
                 # If it is the first char then we know it is part of a number because a subtraction sign is a binary operator and it takes 2 params.
                 partial_num = str(c)
-            # If the char_before is a digit or a parenthisis or the char_after is a space
-            elif (
-                char_before.isdigit()
-                or is_parenthesis(char_before)
-                or char_after == " "
-            ):
-                # If the char_before is a digit or a parenthisis then we know that it is a subtraction operator because if it is a digit then it would be, "5-5" and that is a subtraction, also, "5-(5+5)" then it is a subtraction.
-                tokens.append(c)
-            elif is_op(char_before) or char_before == " ":
-                # If the char_before is an operator then we know it is part of a number
-                partial_num = c
+
+            elif is_first_iteration == False:
+                # If the char_before is a digit or a parenthisis or the char_after is a space
+                if (
+                    char_before.isdigit()
+                    or is_parenthesis(char_before)
+                    or char_after == " "
+                ):
+                    # If the char_before is a digit or a parenthisis then we know that it is a subtraction operator because if it is a digit then it would be, "5-5" and that is a subtraction, also, "5-(5+5)" then it is a subtraction.
+                    tokens.append(c)
+                elif is_op(char_before) or char_before == " ":
+                    # If the char_before is an operator then we know it is part of a number
+                    partial_num = c
 
         elif is_op_not_subtract(c):
             # Add the operator to the tokens list
