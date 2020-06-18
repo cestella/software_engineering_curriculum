@@ -27,5 +27,6 @@ def test_parens():
 def test_RPN():
     assert lex("1 1 +") == [1, 1, "+"]
 
+
 def test_RPN_with_spaces():
     assert lex("1  1 +") == [1, 1, "+"]

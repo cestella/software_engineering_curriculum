@@ -1,13 +1,14 @@
 OPS = ["+", "-", "*", "/"]
 OPS_WITHOUT_SUBTRACTION = ["+", "*", "/"]
 
+
 def is_numeric_char(char):
     """
     is_numeric_char checks if a char is a number or a decimal point.
     Input: char 
     Output: True or False
     """
-    return char.isdigit() or char == "." 
+    return char.isdigit() or char == "."
 
 
 def convert_string(s):
@@ -34,7 +35,7 @@ def is_op_not_subtract(char):
        Input: char (Type: String)
        Output: True/False
     """
-    return char in OPS_WITHOUT_SUBTRACTION 
+    return char in OPS_WITHOUT_SUBTRACTION
 
 
 def is_parenthesis(char):
@@ -105,10 +106,10 @@ def lex(line):
                 partial_num += str(c)
             # If the char_after is a operator or a parenthesis:
             if (
-                is_op(char_after) #If we see an op afterwards
-                or is_parenthesis(char_after) #or if we see a parenthesis after
-                or char_after == " " #or if we see a space afterwards
-                or i == len(stripped_line) - 1 #or if it is the last char
+                is_op(char_after)  # If we see an op afterwards
+                or is_parenthesis(char_after)  # or if we see a parenthesis after
+                or char_after == " "  # or if we see a space afterwards
+                or i == len(stripped_line) - 1  # or if it is the last char
             ):
                 # If this condition is true then we know that the number or decimal is done.
                 tokens.append(convert_string(partial_num))
@@ -118,13 +119,13 @@ def lex(line):
 
         elif c == "-":
             # Negative signs are a problem, because they can be part of a
-            # number, OR they can be a subtraction sign. I am going to use 
+            # number, OR they can be a subtraction sign. I am going to use
             # the following series of checks to differentiate them:
-            #1. If it is the first character then it is a negative sign.
-            #2. If the char before is a digit or a parenthesis then there must be no spaces, and if it is after, then it must be operating on that num.
-            #3. If the char_before is an operator or a space then it must be part of the number
-            #4.
-            
+            # 1. If it is the first character then it is a negative sign.
+            # 2. If the char before is a digit or a parenthesis then there must be no spaces, and if it is after, then it must be operating on that num.
+            # 3. If the char_before is an operator or a space then it must be part of the number
+            # 4.
+
             if is_first_iteration:
                 # If it is the first char then we know it is part of a number because a subtraction sign is a binary operator and it takes 2 params.
                 partial_num = str(c)
