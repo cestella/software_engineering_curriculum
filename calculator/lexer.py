@@ -14,7 +14,7 @@ def is_numeric_char(char):
         Returns
         -------
         bool: Whether or not this character is a numeric character.
-    """    
+    """
     return char.isdigit() or char == "."
 
 
@@ -71,19 +71,19 @@ def is_op_not_subtract(char):
 
 
 def is_parenthesis(char):
-     """
+    """
         Checks whether a char is a parenthesis 
 
         Parameters
         ----------
         char : char
-            The charactere that is going to be checked
+        The charactere that is going to be checked
 
         Returns
         -------
         bool: Whether the character is a parenthesis
     """
-   
+
     if char in ["(", ")"]:
         return True
     else:
