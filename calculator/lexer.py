@@ -4,18 +4,33 @@ OPS_WITHOUT_SUBTRACTION = ["+", "*", "/"]
 
 def is_numeric_char(char):
     """
-    is_numeric_char checks if a char is a number or a decimal point.
-    Input: char 
-    Output: True or False
-    """
+        Determines if a character is a numeric character (i.e. a character which may appear in a number).
+
+        Parameters
+        ----------
+        char : char
+            The character to be evaluated
+
+        Returns
+        -------
+        bool: Whether or not this character is a numeric character.
+    """    
     return char.isdigit() or char == "."
 
 
 def convert_string(s):
-    """Convert_string function converts a string to a float or a int, depending on whether it has a decimal point or not
-       Input: s (Type: String)
-       Output: float or int conversion of  "s"
-"""
+    """
+        Converts a string to the appropriate type, either a float type or a int type
+
+        Parameters
+        ----------
+        s : string
+            The string that should be converted
+        
+        Returns
+        -------
+        float or int : The numerical representation of "s"
+    """
     if "." in s:
         return float(s)
     else:
@@ -23,26 +38,52 @@ def convert_string(s):
 
 
 def is_op(char):
-    """is_op fuction figures out whether the input is an operator
-       Input: char (Type: String)
-       Output: True/False (Type: Boolean)
+    """  
+        Checks if a char is an operator
+
+        Parameters
+        ----------
+        char : char
+            The character that is going to be checked
+
+        Returns
+        -------
+        bool : Whether or not char is an operator
     """
+
     return char in OPS
 
 
 def is_op_not_subtract(char):
-    """is_op_not_subtract is the same as is_op() but it excludes subtraction ("-")
-       Input: char (Type: String)
-       Output: True/False
+    """
+        Checks whether a char is an operator that is not subtraction
+
+        Parameters
+        ----------
+        char : char
+            The charactere that is going to be checked
+
+        Returns
+        -------
+        bool: Whether the character is an operator
     """
     return char in OPS_WITHOUT_SUBTRACTION
 
 
 def is_parenthesis(char):
-    """is_parenthesis() checks if a char is a parenthesis
-       Input: char (Type: String)
-       Output: True/False
-"""
+     """
+        Checks whether a char is a parenthesis 
+
+        Parameters
+        ----------
+        char : char
+            The charactere that is going to be checked
+
+        Returns
+        -------
+        bool: Whether the character is a parenthesis
+    """
+   
     if char in ["(", ")"]:
         return True
     else:
@@ -67,6 +108,15 @@ def lex(line):
     * The following grouping symbols are supported:
       * "("
       * ")"
+
+    Parameters
+    ----------
+    line : string
+        The line to be lexed
+
+    Returns
+    -------
+    list: list of tokens
     """
 
     # Defining char_before and char_after
