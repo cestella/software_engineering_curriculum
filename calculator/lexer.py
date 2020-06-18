@@ -85,11 +85,9 @@ def lex(line):
         c = stripped_line[i]
         # Defining is_first_iteration:
         is_first_iteration = i == 0
-        print(is_first_iteration)
         # Defining char_before but if i is the first index then the index will be invalid
         if not is_first_iteration:
             char_before = stripped_line[i - 1]
-            print(char_before)
         else:
             char_before = None
 
@@ -99,14 +97,14 @@ def lex(line):
         else:
             # If i is the last index then char_after is None
             char_after = None
-        # If c (current char), is a digit or a decimal point. If c is a int or a float:
+
         if is_numeric_char(c):
             # If c is the first iteration:
-            if partial_num == None:
+            if is_first_iteration:
                 partial_num = str(c)
             else:
                 partial_num += str(c)
-            # If the char_after is a operator or a parenthesis:
+
             if (
                 is_op(char_after)  # If we see an op afterwards
                 or is_parenthesis(char_after)  # or if we see a parenthesis after
@@ -115,9 +113,7 @@ def lex(line):
             ):
                 # If this condition is true then we know that the number or decimal is done.
                 tokens.append(convert_string(partial_num))
-                # Then we have to reset partial_num.
                 partial_num = None
-                # We do the same as the above if statement, if it is the end of the line.
 
         elif c == "-":
             # Negative signs are a problem, because they can be part of a
@@ -126,7 +122,6 @@ def lex(line):
             # 1. If it is the first character then it is a negative sign.
             # 2. If the char before is a digit or a parenthesis then there must be no spaces, and if it is after, then it must be operating on that num.
             # 3. If the char_before is an operator or a space then it must be part of the number
-            # 4.
 
             if is_first_iteration:
                 # If it is the first char then we know it is part of a number because a subtraction sign is a binary operator and it takes 2 params.
