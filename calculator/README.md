@@ -21,7 +21,7 @@ code and I will review).
 Please remember to request a review from me by assigning me to your PR
 (from the Pull Request webpage).
 
-## [ ] Create a lexer
+## [X] Create a lexer
 
 A lexer is a function which takes a string and turns it into a list of
 tokens.  For the purpose of our calculator, we want to create a
