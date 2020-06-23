@@ -1,19 +1,19 @@
 BINARY_OPERATORS = ["+", "-", "*", "/"]
 
 
-def binary_operator(num_1, num_2, op):
+def binary_operator(lhs, rhs, op):
     """
     Evaluates and acts on different binary operators
 
     Parameters
     ----------
-    num_1 : integer
-        The first number to be operated on
+    lhs : integer or float
+        The first number to be operated on, will be on the left hand side of the op
     
-    num_2 : integer
-        The second number to be operated on
+    rhs : integer or float
+        The second number to be operated on, will be on the right hand side of the op
     
-    op : char
+    op : string
         The operator that is going to be applied to the numbers
 
     Returns
@@ -22,21 +22,23 @@ def binary_operator(num_1, num_2, op):
     """
 
     if op == "+":
-        return num_1 + num_2
+        return lhs + rhs
 
     elif op == "-":
-        return num_2 - num_1
+        return lhs - rhs
 
     elif op == "*":
-        return num_1 * num_2
+        return lhs * rhs
 
     elif op == "/":
-        return num_2 / num_1
+        return lhs / rhs
+    else:
+        raise ValueError("This operator is not supported, please try another one!")
 
 
 def push(e, stack):
     """
-    Pushes the element (e) to the given stack
+    Pushes the element (e) to the given stack, which mutates the stack
 
     Parameters
     ----------
@@ -48,14 +50,14 @@ def push(e, stack):
 
     Returns
     -------
-    list : The stack that is now updated to have e pushed ontop of it
+    Null : returns nothing, only mutates the list   
     """
     return stack.append(e)
 
 
 def pop(stack):
     """
-    Retrieves the last element from the given stack and deletes it
+    Retrieves the last element from the given stack and deletes it, which mutates it
 
     Parameters
     ----------
@@ -64,7 +66,7 @@ def pop(stack):
 
     Returns
     -------
-    stack : The popped stack
+    Null : returns nothing only mutates the list
     """
     return stack.pop()
 
@@ -83,11 +85,7 @@ def is_numeric_token(token):
     bool: Whether or not this token is a numeric character
     """
 
-    if type(token) == float or type(token) == int:
-        return True
-
-    else:
-        return False
+    return type(token) == float or type(token) == int
 
 
 def rpn(tokens):
@@ -101,7 +99,7 @@ def rpn(tokens):
 
     Returns
     -------
-    rpn_stack : list containing 1 element (the answer)
+    answer : the answer to the equation 
     """
     # Stack used to evaluate the token list (tokens)
     rpn_stack = []
@@ -109,24 +107,31 @@ def rpn(tokens):
     # Iterating through each index in tokens
     for i in range(0, len(tokens)):
 
-        current_char = tokens[i]
+        current_token = tokens[i]
 
-        if is_numeric_token(current_char):
-            # Adding the current character (which is a number) to the rpn stack to be operated on
+        if is_numeric_token(current_token):
+            # Adding the current token (which is a number) to the rpn stack to be operated on
 
-            push(current_char, rpn_stack)
+            push(current_token, rpn_stack)
 
-        elif current_char in BINARY_OPERATORS:
+        elif current_token in BINARY_OPERATORS:
             # First number to be operated on is being taken from the stack
-            first_num = pop(rpn_stack)
+            rhs = pop(rpn_stack)
             # Second number to be operated on is being token from the stack
-            second_num = pop(rpn_stack)
+            lhs = pop(rpn_stack)
             # The awnser of the equation using the binary_operator() function
-            answer = binary_operator(first_num, second_num, current_char)
+            answer = binary_operator(lhs, rhs, current_token)
             # Adding the answer to the stack
             push(answer, rpn_stack)
+
+        else:
+            raise ValueError("The token: {} is not a supported token. Please remove it.".format(current_token))
 
     # If the rpn_stack has only one element (that element would be the answer)
     if len(rpn_stack) == 1:
         # Ending the loop and returning the stack with the answer
-        return rpn_stack
+        return rpn_stack[0]
+    else:
+        pass
+
+print(rpn([-5, 8, "+"]))
