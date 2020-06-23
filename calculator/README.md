@@ -89,7 +89,54 @@ tokens and return the computed answer.  For instance, `assert rpn( lex('1 1 +') 
 2. Create a new file called `parser_test.py` where you will add a set of representative test cases (the example I made in 1 should be one of them).
 
 ## [ ] Create a Infix to RPN Converter
-TODO
+While accurate, what we have now isn't the most convenient calculator to use. Specifically, we don't generally THINK in reverse
+polish notation when we're writing down mathematical expressions.  Instead, we typically use infix notation (e.g. `1 + 1`) rather than RPN, but we
+have spent all this time building a RPN parser to go with our lexer.  We could build another parser which will return the result and take in a list of
+tokens in infix order, but that's not as straightforward as one might think.  
+
+Instead, we can build on a classical algorithm in computer science
+to perform the transformation of a list of tokens from Infix notation to RPN and then parse with our RPN parser.
+This algorithm is called the [Shunting Yard](https://en.wikipedia.org/wiki/Shunting-yard_algorithm) Algorithm and the pseudocode for it is as follows:
+```
+/* This implementation does not implement composite functions,functions with variable number of arguments, and unary operators. */
+
+while there are tokens to be read:
+    read a token.
+    if the token is a number, then:
+        push it to the output queue.
+    else if the token is a function then:
+        push it onto the operator stack 
+    else if the token is an operator then:
+        while ((there is a operator at the top of the operator stack)
+              and ((the operator at the top of the operator stack has greater precedence)
+               or (the operator at the top of the operator stack has equal precedence and the token is left associative))
+              and (the operator at the top of the operator stack is not a left parenthesis)):
+            pop operators from the operator stack onto the output queue.
+        push it onto the operator stack.
+    else if the token is a left parenthesis (i.e. "("), then:
+        push it onto the operator stack.
+    else if the token is a right parenthesis (i.e. ")"), then:
+        while the operator at the top of the operator stack is not a left parenthesis:
+            pop the operator from the operator stack onto the output queue.
+        /* If the stack runs out without finding a left parenthesis, then there are mismatched parentheses. */
+        if there is a left parenthesis at the top of the operator stack, then:
+            pop the operator from the operator stack and discard it
+/* After while loop, if operator stack not null, pop everything to output queue */
+if there are no more tokens to read then:
+    while there are still operator tokens on the stack:
+        /* If the operator token on the top of the stack is a parenthesis, then there are mismatched parentheses. */
+        pop the operator from the operator stack onto the output queue.
+exit.
+```
+
+## Your Task
+
+
+* Create a new function in `parser.py` called `infix(tokens)` that uses the shunting yard algorithm to do the following:
+  * Input: a list of tokens from our lexer in infix ordering
+  * Returns: list of tokens in RPN ordering
+  * NOTE: try to stay as close to the above pseudocode as possible; I will be looking to see if you have cribbed from existing open source python implementations.  If you do, there will be hell to pay.  This exercise is intended to demonstrate mastery of taking a nontrivial algorithm given in pseudocode and translating it to a functional representation in python.
+* Create a new test called `infix_parser_test.py` with a set of tests that ensure that the following style of computation works: `assert rpn(infix(lex('1 + 1'))) == 1 + 1`
 
 ## [ ] Create a Calculator CLI REPL
 TODO
