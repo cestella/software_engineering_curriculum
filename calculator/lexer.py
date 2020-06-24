@@ -203,4 +203,5 @@ def lex(line):
 
     return tokens
 
+
 print(lex("-5 8 +"))

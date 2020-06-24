@@ -33,7 +33,11 @@ def binary_operator(lhs, rhs, op):
     elif op == "/":
         return lhs / rhs
     else:
-        raise ValueError("This operator is not supported, please try another one!")
+        raise ValueError(
+            "The operator you used: {} is not supported, please try another one!".format(
+                op
+            )
+        )
 
 
 def push(e, stack):
@@ -48,9 +52,6 @@ def push(e, stack):
     stack : list
         The stack that e is going to be pushed onto
 
-    Returns
-    -------
-    Null : returns nothing, only mutates the list   
     """
     return stack.append(e)
 
@@ -63,10 +64,6 @@ def pop(stack):
     ----------
     stack : list
         The stack (in list form) to be operated on
-
-    Returns
-    -------
-    Null : returns nothing only mutates the list
     """
     return stack.pop()
 
@@ -125,13 +122,17 @@ def rpn(tokens):
             push(answer, rpn_stack)
 
         else:
-            raise ValueError("The token: {} is not a supported token. Please remove it.".format(current_token))
+            raise ValueError(
+                "The token: {} is not a supported token. Please remove it.".format(
+                    current_token
+                )
+            )
 
     # If the rpn_stack has only one element (that element would be the answer)
     if len(rpn_stack) == 1:
         # Ending the loop and returning the stack with the answer
         return rpn_stack[0]
     else:
-        pass
-
-print(rpn([-5, 8, "+"]))
+        raise ValueError(
+            "Your equation is non-mathmatical, here are the tokens: {}".format(tokens)
+        )
