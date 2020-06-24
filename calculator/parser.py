@@ -18,7 +18,7 @@ def binary_operator(lhs, rhs, op):
 
     Returns
     -------
-    integer : The final answer after after the nums are operated on
+    integer or float : The final answer after after the nums are operated on
     """
 
     if op == "+":
@@ -34,9 +34,7 @@ def binary_operator(lhs, rhs, op):
         return lhs / rhs
     else:
         raise ValueError(
-            "The operator you used: {} is not supported, please try another one!".format(
-                op
-            )
+            "The operator you used: {} is not supported. Valid Operators: {}".format(op, ",".join(BINARY_OPERATORS))          
         )
 
 
@@ -53,7 +51,7 @@ def push(e, stack):
         The stack that e is going to be pushed onto
 
     """
-    return stack.append(e)
+    stack.append(e)
 
 
 def pop(stack):
@@ -65,7 +63,7 @@ def pop(stack):
     stack : list
         The stack (in list form) to be operated on
     """
-    return stack.pop()
+    stack.pop()
 
 
 def is_numeric_token(token):
@@ -92,11 +90,11 @@ def rpn(tokens):
     Parameters
     ----------
     tokens : list
-        list of tokens
+        list of tokens in RPN
 
     Returns
     -------
-    answer : the answer to the equation 
+    answer : the answer to the expression
     """
     # Stack used to evaluate the token list (tokens)
     rpn_stack = []
@@ -112,13 +110,12 @@ def rpn(tokens):
             push(current_token, rpn_stack)
 
         elif current_token in BINARY_OPERATORS:
-            # First number to be operated on is being taken from the stack
+            # The number to the right of the operator is being taken from the stack
             rhs = pop(rpn_stack)
-            # Second number to be operated on is being token from the stack
+            # The number to the left of the operator is being taken from the stack
             lhs = pop(rpn_stack)
-            # The awnser of the equation using the binary_operator() function
+            # The answer of the expression using the binary_operator() function
             answer = binary_operator(lhs, rhs, current_token)
-            # Adding the answer to the stack
             push(answer, rpn_stack)
 
         else:
@@ -134,5 +131,5 @@ def rpn(tokens):
         return rpn_stack[0]
     else:
         raise ValueError(
-            "Your equation is non-mathmatical, here are the tokens: {}".format(tokens)
+            "Your equation is non-mathmatical, here are the tokens: {}".format(",".join(tokens))
         )
