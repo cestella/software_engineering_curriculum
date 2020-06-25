@@ -202,5 +202,3 @@ def lex(line):
             tokens.append(c)
 
     return tokens
-
-
