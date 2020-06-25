@@ -55,7 +55,7 @@ These test cases have been encoded in a unit test located in
 2. run it via `nosetests ./lexer_test.py`.  If there are errors, it will indicate the test case which fails.
 3. Add any new assertions that you think might be reasonable.
 
-## [ ] Create a RPN Parser
+## [X] Create a RPN Parser
 Now that you have a lexer which will convert strings into tokens, we have to DO something with those tokens.  
 Since we're creating a calculator here, we should actually write a parser.  Before we do that, let's talk a bit
 about the different types of mathematical notation.
