@@ -22,7 +22,13 @@ def binary_operator(lhs, rhs, op):
     """
 
     if op == "+":
-        return lhs + rhs
+        try:
+            print(rhs, lhs)
+            return lhs + rhs
+
+        except TypeError:
+            print(rhs, lhs)
+            
 
     elif op == "-":
         return lhs - rhs
@@ -108,13 +114,16 @@ def rpn(tokens):
             # Adding the current token (which is a number) to the rpn stack to be operated on
 
             push(current_token, rpn_stack)
-
+            print(rpn_stack)
         elif current_token in BINARY_OPERATORS:
             # The number to the right of the operator is being taken from the stack
             rhs = pop(rpn_stack)
             # The number to the left of the operator is being taken from the stack
             lhs = pop(rpn_stack)
+            print(rpn_stack)
             # The answer of the expression using the binary_operator() function
+            #print("lhs: {} and rhs: {}".format(lhs, rhs))
+            
             answer = binary_operator(lhs, rhs, current_token)
             push(answer, rpn_stack)
 
@@ -131,5 +140,7 @@ def rpn(tokens):
         return rpn_stack[0]
     else:
         raise ValueError(
-            "Your equation is non-mathmatical, here are the tokens: {}".format(",".join(tokens))
+            "Your equation is non-mathmatical, here are the tokens: {}".format(','.join(str(t) for t in tokens))
         )
+
+print(rpn([1, 1, "+"]))
