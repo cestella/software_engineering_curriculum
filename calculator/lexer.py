@@ -177,6 +177,9 @@ def lex(line):
                 # If it is the first char then we know it is part of a number because a subtraction sign is a binary operator and it takes 2 params.
                 partial_num = str(c)
 
+            elif i == len(stripped_line) - 1:
+                tokens.append(c)
+
             elif is_first_iteration == False:
                 # If the char_before is a digit or a parenthisis or the char_after is a space
                 if (
