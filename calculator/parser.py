@@ -1,4 +1,9 @@
+import lexer
+
 BINARY_OPERATORS = ["+", "-", "*", "/"]
+
+def is_function(string):
+    return False
 
 
 def binary_operator(lhs, rhs, op):
@@ -139,3 +144,18 @@ def rpn(tokens):
                 ",".join(str(t) for t in tokens)
             )
         )
+
+
+def infix(token_list):
+    output = []
+    operators = []
+    for token in token_list:
+        if token.isdigit():
+            push(token, output)
+
+        if is_function(token):
+            push(token, operators)
+
+        if token in lexer.OPS:
+            while 
+    
