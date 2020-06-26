@@ -2,6 +2,7 @@ import lexer
 
 BINARY_OPERATORS = ["+", "-", "*", "/"]
 
+
 def is_function(string):
     return False
 
@@ -157,5 +158,4 @@ def infix(token_list):
             push(token, operators)
 
         if token in lexer.OPS:
-            while 
-    
+            pass
