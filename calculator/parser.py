@@ -73,7 +73,21 @@ def pop(stack):
     """
     return stack.pop()
 
+def peek(stack):
+    """
+    Returns the top value of the given stack
 
+    Parameter
+    ---------
+    stack : list
+        The stack to operated on
+
+    Returns
+    -------
+    token : The top token of the stack
+    """
+
+    return list[-1]
 def is_numeric_token(token):
     """
     Says whether or not the token input is a number
@@ -158,4 +172,6 @@ def infix(token_list):
             push(token, operators)
 
         if token in lexer.OPS:
-            pass
+            while peek(operators) != None and :
+                
+                 
