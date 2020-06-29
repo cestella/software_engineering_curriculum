@@ -2,6 +2,9 @@ import lexer
 
 BINARY_OPERATORS = ["+", "-", "*", "/"]
 
+OPS_RANKING = {"(":1, ")":1, "/":2, "*":3, "+":4, "-":5}
+
+OPS_ASSOSIATIVITY = {"+":"l", "-":"l", "*":"l", "/":"l"} 
 
 def is_function(string):
     return False
@@ -168,10 +171,22 @@ def infix(token_list):
         if token.isdigit():
             push(token, output)
 
-        if is_function(token):
+        else is_function(token):
             push(token, operators)
 
-        if token in lexer.OPS:
-            while peek(operators) != None and :
-                
+        else token in lexer.OPS:
+            while ((peek(operators) != None)
+                   and ((OPS_RANKING[peek(operators)] > OPS_RANKING[token])
+                   or (OPS_RANKING[peek(operators)] == OPS_RANKING[token] and OPS_ASSOSIATIVITY[token] == "l"))
+                   and(peek(operators) != "(")):
+                push(pop(operators, output)
+                    
+            push(token, operator)
+
+        else token == "(":
+            push(token, operators)
+    
+        else token == ")":
+            while peek(operators) != "(":
+                push(pop())     
                  
