@@ -65,18 +65,26 @@ def push(e, stack):
     stack.append(e)
 
 
-def pop(stack):
+def pop(list, type):
     """
-    Retrieves the last element from the given stack and deletes it, which mutates it
+    Retrieves the last element from the given stack or queue and deletes it, which mutates it
 
     Parameters
     ----------
-    stack : list
-        The stack (in list form) to be operated on
-    """
-    return stack.pop()
+    list : list
+        The list to be operated on
 
-def peek(stack):
+    type : string
+        Whether or not it is a queue or a stack
+
+    """
+    if type == "s":
+        return list.pop()
+
+    elif type == "q":
+        return list.pop(0)
+
+def peek(list, type):
     """
     Returns the top value of the given stack
 
@@ -89,8 +97,17 @@ def peek(stack):
     -------
     token : The top token of the stack
     """
+    
+    try:
+        if type == "s":
+            return list[-1]
 
-    return list[-1]
+        elif type == "q":
+            return list[0]
+
+    except:
+        return None
+
 def is_numeric_token(token):
     """
     Says whether or not the token input is a number
@@ -136,9 +153,9 @@ def rpn(tokens):
 
         elif current_token in BINARY_OPERATORS:
             # The number to the right of the operator is being taken from the stack
-            rhs = pop(rpn_stack)
+            rhs = pop(rpn_stack, "s")
             # The number to the left of the operator is being taken from the stack
-            lhs = pop(rpn_stack)
+            lhs = pop(rpn_stack, "s")
             # The answer of the expression using the binary_operator() function
             # print("lhs: {} and rhs: {}".format(lhs, rhs))
 
@@ -155,7 +172,7 @@ def rpn(tokens):
     # If the rpn_stack has only one element (that element would be the answer)
     if len(rpn_stack) == 1:
         # Ending the loop and returning the stack with the answer
-        return rpn_stack[0]
+        return rpn_stack[0] 
     else:
         raise ValueError(
             "Your equation is non-mathmatical, here are the tokens: {}".format(
@@ -167,26 +184,45 @@ def rpn(tokens):
 def infix(token_list):
     output = []
     operators = []
+    iteration_num = 1 
     for token in token_list:
-        if token.isdigit():
+        
+        if str(token).isdigit() or "-" in str(token) and str(token) != "-" or "." in str(token):
             push(token, output)
+            iteration_num += 1
 
-        else is_function(token):
+        elif is_function(token):
             push(token, operators)
 
-        else token in lexer.OPS:
-            while ((peek(operators) != None)
-                   and ((OPS_RANKING[peek(operators)] > OPS_RANKING[token])
-                   or (OPS_RANKING[peek(operators)] == OPS_RANKING[token] and OPS_ASSOSIATIVITY[token] == "l"))
-                   and(peek(operators) != "(")):
-                push(pop(operators, output)
+        elif token in lexer.OPS:
+            while ((peek(operators, "s") != None)
+                   and ((OPS_RANKING[peek(operators, "s")] > OPS_RANKING[token])
+                   or (OPS_RANKING[peek(operators, "s")] == OPS_RANKING[token] and OPS_ASSOSIATIVITY[token] == "l"))
+                   and(peek(operators, "s") != "(")):
+                push(peek(operators, "s"), output)
+                iteration_num += 1
                     
-            push(token, operator)
-
-        else token == "(":
+        
             push(token, operators)
+        
+        if token == "(":
+            push(token, operators)
+            iteration_num += 1
     
-        else token == ")":
-            while peek(operators) != "(":
-                push(pop())     
-                 
+        elif token == ")":
+            while peek(operators, "s") != "(":
+                push(pop(operators, "s"), output)
+                iteration_num += 1 
+
+            if peek(operators, "s") == "(":
+                pop(operators, "s")
+                iteration_num += 1
+
+    if iteration_num == len(token_list):
+        while len(operators) != 0:
+            push(pop(operators, "s"), output)
+
+    return output
+
+print(rpn(infix(lexer.lex("-5 + 8"))))
+print(1 + 1)
