@@ -2,9 +2,10 @@ import lexer
 
 BINARY_OPERATORS = ["+", "-", "*", "/"]
 
-OPS_RANKING = {"(":1, ")":1, "/":2, "*":3, "+":4, "-":5}
+OPS_RANKING = {"(": 1, ")": 1, "/": 2, "*": 3, "+": 4, "-": 5}
 
-OPS_ASSOSIATIVITY = {"+":"l", "-":"l", "*":"l", "/":"l"} 
+OPS_ASSOSIATIVITY = {"+": "l", "-": "l", "*": "l", "/": "l"}
+
 
 def is_function(string):
     return False
@@ -84,6 +85,7 @@ def pop(list, type):
     elif type == "q":
         return list.pop(0)
 
+
 def peek(list, type):
     """
     Returns the top value of the given stack
@@ -97,7 +99,7 @@ def peek(list, type):
     -------
     token : The top token of the stack
     """
-    
+
     try:
         if type == "s":
             return list[-1]
@@ -107,6 +109,7 @@ def peek(list, type):
 
     except:
         return None
+
 
 def is_numeric_token(token):
     """
@@ -172,7 +175,7 @@ def rpn(tokens):
     # If the rpn_stack has only one element (that element would be the answer)
     if len(rpn_stack) == 1:
         # Ending the loop and returning the stack with the answer
-        return rpn_stack[0] 
+        return rpn_stack[0]
     else:
         raise ValueError(
             "Your equation is non-mathmatical, here are the tokens: {}".format(
@@ -184,10 +187,15 @@ def rpn(tokens):
 def infix(token_list):
     output = []
     operators = []
-    iteration_num = 1 
+    iteration_num = 1
     for token in token_list:
-        
-        if str(token).isdigit() or "-" in str(token) and str(token) != "-" or "." in str(token):
+
+        if (
+            str(token).isdigit()
+            or "-" in str(token)
+            and str(token) != "-"
+            or "." in str(token)
+        ):
             push(token, output)
             iteration_num += 1
 
@@ -195,24 +203,30 @@ def infix(token_list):
             push(token, operators)
 
         elif token in lexer.OPS:
-            while ((peek(operators, "s") != None)
-                   and ((OPS_RANKING[peek(operators, "s")] > OPS_RANKING[token])
-                   or (OPS_RANKING[peek(operators, "s")] == OPS_RANKING[token] and OPS_ASSOSIATIVITY[token] == "l"))
-                   and(peek(operators, "s") != "(")):
+            while (
+                (peek(operators, "s") != None)
+                and (
+                    (OPS_RANKING[peek(operators, "s")] > OPS_RANKING[token])
+                    or (
+                        OPS_RANKING[peek(operators, "s")] == OPS_RANKING[token]
+                        and OPS_ASSOSIATIVITY[token] == "l"
+                    )
+                )
+                and (peek(operators, "s") != "(")
+            ):
                 push(peek(operators, "s"), output)
                 iteration_num += 1
-                    
-        
+
             push(token, operators)
-        
+
         if token == "(":
             push(token, operators)
             iteration_num += 1
-    
+
         elif token == ")":
             while peek(operators, "s") != "(":
                 push(pop(operators, "s"), output)
-                iteration_num += 1 
+                iteration_num += 1
 
             if peek(operators, "s") == "(":
                 pop(operators, "s")
@@ -223,6 +237,7 @@ def infix(token_list):
             push(pop(operators, "s"), output)
 
     return output
+
 
 print(rpn(infix(lexer.lex("-5 + 8"))))
 print(1 + 1)

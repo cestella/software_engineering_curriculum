@@ -2,6 +2,7 @@ from parser import rpn
 from lexer import lex
 from parser import infix
 
+
 def test_basic():
     assert rpn(infix(lex("1 + 1"))) == (1 + 1)
 
