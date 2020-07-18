@@ -92,12 +92,12 @@ def peek(list, type):
 
     Parameter
     ---------
-    stack : list
-        The stack to operated on
+    list : list
+        The stack or queue (in list form) to operated on
 
     Returns
     -------
-    token : The top token of the stack
+    token : The top token of the stack or queue
     """
 
     try:
@@ -185,6 +185,22 @@ def rpn(tokens):
 
 
 def infix(token_list):
+
+    """
+    Parses Infix notation and returns the equivilant RPN form
+
+    Parameters
+    ==========
+    token_list : list
+        The list of infix tokens
+
+    Returns 
+    --------
+    output : list
+        This is the output queue where the final answer is arranged
+    
+    """
+
     # Output Queue
     output = []
 
@@ -196,6 +212,9 @@ def infix(token_list):
     # Iterating through each token in the token_list
     for token in token_list:
 
+        # If the token is the a digit, or:
+        # 1. It has a negative sign in it and the whole number is not just a negative sign
+        # 2. or a decimal point is in the token
         if (
             str(token).isdigit()
             or "-" in str(token)
