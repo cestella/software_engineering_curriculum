@@ -185,17 +185,24 @@ def rpn(tokens):
 
 
 def infix(token_list):
+    # Output Queue
     output = []
+    
+    # Operators Stack
     operators = []
+    
     iteration_num = 1
+    
+    # Iterating through each token in the token_list
     for token in token_list:
-
+        
         if (
             str(token).isdigit()
             or "-" in str(token)
             and str(token) != "-"
             or "." in str(token)
         ):
+            
             push(token, output)
             iteration_num += 1
 
@@ -203,41 +210,44 @@ def infix(token_list):
             push(token, operators)
 
         elif token in lexer.OPS:
-            while (
-                (peek(operators, "s") != None)
-                and (
-                    (OPS_RANKING[peek(operators, "s")] > OPS_RANKING[token])
-                    or (
-                        OPS_RANKING[peek(operators, "s")] == OPS_RANKING[token]
-                        and OPS_ASSOSIATIVITY[token] == "l"
-                    )
-                )
-                and (peek(operators, "s") != "(")
-            ):
-                push(peek(operators, "s"), output)
+            # If there are tokens to be read then
+            # 1. And the operator on teh operator stack has greater precedence (for order of operations)
+            # 2. Or they have equal precedense and the token is left associative
+            # 3. If the operator on the operator stack is not a "("
+
+            while ((peek(operators, "s") != None)
+                and ((OPS_RANKING[peek(operators, "s")] > OPS_RANKING[token])
+                or (OPS_RANKING[peek(operators, "s")] == OPS_RANKING[token]
+                and OPS_ASSOSIATIVITY[token] == "l"))
+                and (peek(operators, "s") != "(")):
+
+                # Pushing the token on top of the operators stach onto the output queue
+                push(pop(operators, "s"), output)
                 iteration_num += 1
 
             push(token, operators)
 
         if token == "(":
+
             push(token, operators)
             iteration_num += 1
 
         elif token == ")":
+        
+            # If the top of the operator stack is not a "(" (Left Parenthesis)
             while peek(operators, "s") != "(":
                 push(pop(operators, "s"), output)
                 iteration_num += 1
 
+            # If the top of the operator stack is a "(" (Left Parenthesis)
             if peek(operators, "s") == "(":
                 pop(operators, "s")
                 iteration_num += 1
 
+    # If there are no more tokens to be read:
     if iteration_num == len(token_list):
         while len(operators) != 0:
             push(pop(operators, "s"), output)
 
     return output
 
-
-print(rpn(infix(lexer.lex("-5 + 8"))))
-print(1 + 1)

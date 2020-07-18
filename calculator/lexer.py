@@ -172,6 +172,7 @@ def lex(line):
             # 1. If it is the first character then it is a negative sign.
             # 2. If the char before is a digit or a parenthesis then there must be no spaces, and if it is after, then it must be operating on that num.
             # 3. If the char_before is an operator or a space then it must be part of the number
+            # 4. If the char before is a "(" then it is a negative sign
 
             if is_first_iteration:
                 # If it is the first char then we know it is part of a number because a subtraction sign is a binary operator and it takes 2 params.
@@ -179,6 +180,9 @@ def lex(line):
 
             elif i == len(stripped_line) - 1:
                 tokens.append(c)
+
+            elif char_before == "(":
+                partial_num = str(c)
 
             elif is_first_iteration == False:
                 # If the char_before is a digit or a parenthisis or the char_after is a space
