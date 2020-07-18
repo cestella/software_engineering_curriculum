@@ -187,22 +187,22 @@ def rpn(tokens):
 def infix(token_list):
     # Output Queue
     output = []
-    
+
     # Operators Stack
     operators = []
-    
+
     iteration_num = 1
-    
+
     # Iterating through each token in the token_list
     for token in token_list:
-        
+
         if (
             str(token).isdigit()
             or "-" in str(token)
             and str(token) != "-"
             or "." in str(token)
         ):
-            
+
             push(token, output)
             iteration_num += 1
 
@@ -215,11 +215,17 @@ def infix(token_list):
             # 2. Or they have equal precedense and the token is left associative
             # 3. If the operator on the operator stack is not a "("
 
-            while ((peek(operators, "s") != None)
-                and ((OPS_RANKING[peek(operators, "s")] > OPS_RANKING[token])
-                or (OPS_RANKING[peek(operators, "s")] == OPS_RANKING[token]
-                and OPS_ASSOSIATIVITY[token] == "l"))
-                and (peek(operators, "s") != "(")):
+            while (
+                (peek(operators, "s") != None)
+                and (
+                    (OPS_RANKING[peek(operators, "s")] > OPS_RANKING[token])
+                    or (
+                        OPS_RANKING[peek(operators, "s")] == OPS_RANKING[token]
+                        and OPS_ASSOSIATIVITY[token] == "l"
+                    )
+                )
+                and (peek(operators, "s") != "(")
+            ):
 
                 # Pushing the token on top of the operators stach onto the output queue
                 push(pop(operators, "s"), output)
@@ -233,7 +239,7 @@ def infix(token_list):
             iteration_num += 1
 
         elif token == ")":
-        
+
             # If the top of the operator stack is not a "(" (Left Parenthesis)
             while peek(operators, "s") != "(":
                 push(pop(operators, "s"), output)
@@ -250,4 +256,3 @@ def infix(token_list):
             push(pop(operators, "s"), output)
 
     return output
-
