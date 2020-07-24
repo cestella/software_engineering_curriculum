@@ -88,7 +88,7 @@ Your task for this PR is to create a Reverse Polish Notation Parser:
 tokens and return the computed answer.  For instance, `assert rpn( lex('1 1 +') ) == 2` should be true.
 2. Create a new file called `parser_test.py` where you will add a set of representative test cases (the example I made in 1 should be one of them).
 
-## [ ] Create a Infix to RPN Converter
+## [X] Create a Infix to RPN Converter
 While accurate, what we have now isn't the most convenient calculator to use. Specifically, we don't generally THINK in reverse
 polish notation when we're writing down mathematical expressions.  Instead, we typically use infix notation (e.g. `1 + 1`) rather than RPN, but we
 have spent all this time building a RPN parser to go with our lexer.  We could build another parser which will return the result and take in a list of
