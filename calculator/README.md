@@ -139,10 +139,10 @@ exit.
 * Create a new test called `infix_parser_test.py` with a set of tests that ensure that the following style of computation works: `assert rpn(infix(lex('1 + 1'))) == 1 + 1`
 
 ## [ ] Create a Calculator CLI REPL
-I am going to make REPL in the command-line. It is going to be activatid by inputing `calcular` into the command-line prompt. That will open up the calcular app.
+    I am going to make REPL in the command-line. It is going to be activatid by inputing `calcular` into the command-line prompt. That will open up the calcular app.
 
-Next, there will be a prompt to input a expression to the calcular prompt. It will output the right answer to the equation, except if there is a syntax error. Then it will tell the user about it.
+    Next, there will be a prompt to input a expression to the calcular prompt. It will output the right answer to the equation, except if there is a syntax error. Then it will tell the user about it.
 
-I am going to make a setup.py to install this software. To make the source code executable, I will use `chmod`.(From https://medium.com/@peey/how-to-make-a-file-executable-in-linux-99f2070306b5) Then, so I can set it to clone in the local executable directory, I am going to do `export PATH="$HOME/bin:$PATH"`. (From https://linuxize.com/post/how-to-add-directory-to-path-in-linux/) Then, finaly, to make the directory in my `$PATH` directory reference here, I am going to create a hard link using the `ln -s` command. (From: https://linuxize.com/post/how-to-create-symbolic-links-in-linux-using-the-ln-command/#:~:text=By%20default%2C%20the%20ln%20command,s%20(%20%2D%2Dsymbolic%20)%20option.&text=If%20both%20the%20FILE%20and,the%20second%20argument%20(%20LINK%20).)
+    I am going to make a setup.py to install this software. To make the source code executable, I will use `chmod`.(From https://medium.com/@peey/how-to-make-a-file-executable-in-linux-99f2070306b5) Then, so I can set it to clone in the local executable directory, I am going to do `export PATH="$HOME/bin:$PATH"`. (From https://linuxize.com/post/how-to-add-directory-to-path-in-linux/) Then, finaly, to make the directory in my `$PATH` directory reference here, I am going to create a hard link using the `ln -s` command. (From: https://linuxize.com/post/how-to-create-symbolic-links-in-linux-using-the-ln-command/#:~:text=By%20default%2C%20the%20ln%20command,s%20(%20%2D%2Dsymbolic%20)%20option.&text=If%20both%20the%20FILE%20and,the%20second%20argument%20(%20LINK%20).)
 
 
