@@ -121,7 +121,6 @@ exit.
 * Create a new test called `infix_parser_test.py` with a set of tests that ensure that the following style of computation works: `assert rpn(infix(lex('1 + 1'))) == 1 + 1`
 
 ## [ ] Create a Calculator CLI REPL
-<<<<<<< HEAD
 I am going to make REPL in the command-line. It is going to be activatid by inputing `calcular` into the command-line prompt. That will open up the calcular app.
 
 Next, there will be a prompt to input a expression to the calcular prompt. It will output the right answer to the equation, except if there is a syntax error. Then it will tell the user about it.
