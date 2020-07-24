@@ -83,10 +83,15 @@ def push(value, stack):
 
 def pop(stack):
     """
-    Retrieves the last element from the given stack and deletes it, which mutates it
+    Retrieves the last element from the given stack and deletes it, which mutates iti
+    Parameters
     ----------
     stack : list
         The stack (in list form) to be operated on
+    Returns
+    -------
+    value : char
+        The value at the end of the given stack
     """
     return stack.pop()
 
@@ -100,7 +105,7 @@ def peek(stack):
         The stack (in list form) to operated on
     Returns
     -------
-    token : The top token of the stack or queue
+    token : The top token of the stack
     """
     try:
         return stack[-1]
@@ -117,28 +122,8 @@ def enqueue(value, queue):
         The queue in list form
     value : element
         The item to enqueue to the given queue
-
-    Returns     
-    -------
-    queue : list
-        The queue that has been mutated
     """
-    return queue.append(value)
-
-
-def dequeue(queue):
-    """
-    Retrieves the last element from the given queue and deletes it, which mutates it
-    Parameters
-    ----------
-    queue : list
-        The queue (in list form) to be operated on
-    Returns
-    -------
-    queue : list
-        The queue that has been mutated
-    """
-    return queue.pop(0)
+    queue.append(value)
 
 
 def rpn(tokens):

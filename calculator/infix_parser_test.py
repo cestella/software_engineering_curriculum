@@ -75,3 +75,7 @@ def test_decimal():
 
 def test_negative():
     assert rpn(infix(lex("-5"))) == -5
+
+
+def test_negative_decimal():
+    assert rpn(infix(lex("-5.0")))
