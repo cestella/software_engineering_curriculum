@@ -50,67 +50,6 @@ def binary_operator(lhs, rhs, op):
         )
 
 
-def push(e, stack):
-    """
-    Pushes the element (e) to the given stack, which mutates the stack
-
-    Parameters
-    ----------
-    e : element
-        The element to be pushed on top of the stack
-
-    stack : list
-        The stack that e is going to be pushed onto
-
-    """
-    stack.append(e)
-
-
-def pop(list, type):
-    """
-    Retrieves the last element from the given stack or queue and deletes it, which mutates it
-
-    Parameters
-    ----------
-    list : list
-        The list to be operated on
-
-    type : string
-        Whether or not it is a queue or a stack
-
-    """
-    if type == "s":
-        return list.pop()
-
-    elif type == "q":
-        return list.pop(0)
-
-
-def peek(list, type):
-    """
-    Returns the top value of the given stack
-
-    Parameter
-    ---------
-    list : list
-        The stack or queue (in list form) to operated on
-
-    Returns
-    -------
-    token : The top token of the stack or queue
-    """
-
-    try:
-        if type == "s":
-            return list[-1]
-
-        elif type == "q":
-            return list[0]
-
-    except:
-        return None
-
-
 def is_numeric_token(token):
     """
     Says whether or not the token input is a number
@@ -126,6 +65,79 @@ def is_numeric_token(token):
     """
 
     return type(token) == float or type(token) == int
+
+
+def push(value, stack):
+    """
+    Pushes the element (value) to the given stack, which mutates the stack
+    Parameters
+    ----------
+    value : element
+        The element to be pushed on top of the stack
+    stack : list
+        The stack that e is going to be pushed onto
+    """
+    stack.append(value)
+
+
+def pop(stack):
+    """
+    Retrieves the last element from the given stack and deletes it, which mutates it
+    ----------
+    stack : list
+        The stack (in list form) to be operated on
+    """
+    return stack.pop()
+
+
+def peek(stack):
+    """
+    Returns the top value of the given stack
+    Parameter
+    ---------
+    list : list
+        The stack (in list form) to operated on
+    Returns
+    -------
+    token : The top token of the stack or queue
+    """
+    try:
+        return stack[-1]
+    except:
+        pass
+
+
+def enqueue(value, queue):
+    """
+    Pushes the element (value) to the given queue, which mutates the queue
+    Parameters
+    ----------
+    queue : list
+        The queue in list form
+    value : element
+        The item to enqueue to the given queue
+
+    Returns     
+    -------
+    queue : list
+        The queue that has been mutated
+    """
+    return queue.append(value)
+
+
+def dequeue(queue):
+    """
+    Retrieves the last element from the given queue and deletes it, which mutates it
+    Parameters
+    ----------
+    queue : list
+        The queue (in list form) to be operated on
+    Returns
+    -------
+    queue : list
+        The queue that has been mutated
+    """
+    return queue.pop(0)
 
 
 def rpn(tokens):
@@ -156,9 +168,9 @@ def rpn(tokens):
 
         elif current_token in BINARY_OPERATORS:
             # The number to the right of the operator is being taken from the stack
-            rhs = pop(rpn_stack, "s")
+            rhs = pop(rpn_stack)
             # The number to the left of the operator is being taken from the stack
-            lhs = pop(rpn_stack, "s")
+            lhs = pop(rpn_stack)
             # The answer of the expression using the binary_operator() function
             # print("lhs: {} and rhs: {}".format(lhs, rhs))
 
@@ -207,11 +219,11 @@ def infix(token_list):
     # Operators Stack
     operators = []
 
-    iteration_num = 1
+    iteration_num = 0
 
     # Iterating through each token in the token_list
     for token in token_list:
-
+        print(token, operators, output)
         # If the token is the a digit, or:
         # 1. It has a negative sign in it and the whole number is not just a negative sign
         # 2. or a decimal point is in the token
@@ -222,7 +234,7 @@ def infix(token_list):
             or "." in str(token)
         ):
 
-            push(token, output)
+            enqueue(token, output)
             iteration_num += 1
 
         elif is_function(token):
@@ -230,48 +242,53 @@ def infix(token_list):
 
         elif token in lexer.OPS:
             # If there are tokens to be read then
-            # 1. And the operator on teh operator stack has greater precedence (for order of operations)
-            # 2. Or they have equal precedense and the token is left associative
-            # 3. If the operator on the operator stack is not a "("
+            # 1. If the operators stack is not empty (for the first operator, we want to skip this loop and go push the token to the opeators stack)
+            # 2. And the operator on teh operator stack has greater precedence (for order of operations)
+            # 3. Or they have equal precedense and the token is left associative
+            # 4. If the operator on the operator stack is not a "("
 
             while (
-                (peek(operators, "s") != None)
+                (peek(operators) != None)
                 and (
-                    (OPS_RANKING[peek(operators, "s")] > OPS_RANKING[token])
+                    (OPS_RANKING[peek(operators)] > OPS_RANKING[token])
                     or (
-                        OPS_RANKING[peek(operators, "s")] == OPS_RANKING[token]
+                        OPS_RANKING[peek(operators)] == OPS_RANKING[token]
                         and OPS_ASSOSIATIVITY[token] == "l"
                     )
                 )
-                and (peek(operators, "s") != "(")
+                and (peek(operators) != "(")
             ):
-
-                # Pushing the token on top of the operators stach onto the output queue
-                push(pop(operators, "s"), output)
+                # Pushing the token on top of the operators stack onto the output queue
+                enqueue(pop(operators), output)
                 iteration_num += 1
 
             push(token, operators)
 
+        # This is basically useless, that is why we skip it in the operator while loop, but we still need to recognize it as an operator processed
         if token == "(":
-
             push(token, operators)
             iteration_num += 1
 
         elif token == ")":
-
+            # If the operator on the top of the operator stack is not a "(", then it is an operator, and since this is the end of the group then we have to update the output with the operator
             # If the top of the operator stack is not a "(" (Left Parenthesis)
-            while peek(operators, "s") != "(":
-                push(pop(operators, "s"), output)
+            if peek(operators) != "(" and len(operators) != 0:
+                enqueue(pop(operators), output)
                 iteration_num += 1
-
+            print(operators)
+            # Ignoring this char again, but we still need to count it as a operator operated on
             # If the top of the operator stack is a "(" (Left Parenthesis)
-            if peek(operators, "s") == "(":
-                pop(operators, "s")
+            if peek(operators) == "(" and len(operators) != 0:
+                print(operators, output)
+                pop(operators)
                 iteration_num += 1
 
-    # If there are no more tokens to be read:
-    if iteration_num == len(token_list):
+    if len(token_list) - 1 == iteration_num:
+        print(operators)
         while len(operators) != 0:
-            push(pop(operators, "s"), output)
+            print(operators)
+            if peek(operators) != "(":
+                print(operators)
+                enqueue(pop(operators), output)
 
     return output
