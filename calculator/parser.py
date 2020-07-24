@@ -101,7 +101,7 @@ def peek(stack):
     Returns the top value of the given stack
     Parameter
     ---------
-    list : list
+    stack : list
         The stack (in list form) to operated on
     Returns
     -------
