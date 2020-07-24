@@ -1,4 +1,5 @@
 import lexer
+import numbers
 
 BINARY_OPERATORS = ["+", "-", "*", "/"]
 
@@ -64,7 +65,7 @@ def is_numeric_token(token):
     bool: Whether or not this token is a numeric character
     """
 
-    return type(token) == float or type(token) == int
+    return isinstance(token, numbers.Number)
 
 
 def push(value, stack):
@@ -199,7 +200,7 @@ def rpn(tokens):
 def infix(token_list):
 
     """
-    Parses Infix notation and returns the equivilant RPN form
+    Parses Infix notation and returns the equivilant RPN form (Pseudocode used from: https://en.wikipedia.org/wiki/Shunting-yard_algorithm)
 
     Parameters
     ==========
@@ -219,32 +220,24 @@ def infix(token_list):
     # Operators Stack
     operators = []
 
-    iteration_num = 0
+    processed_tokens = 0
 
     # Iterating through each token in the token_list
     for token in token_list:
-        print(token, operators, output)
-        # If the token is the a digit, or:
-        # 1. It has a negative sign in it and the whole number is not just a negative sign
-        # 2. or a decimal point is in the token
-        if (
-            str(token).isdigit()
-            or "-" in str(token)
-            and str(token) != "-"
-            or "." in str(token)
-        ):
+        if is_numeric_token(token):
 
             enqueue(token, output)
-            iteration_num += 1
+            processed_tokens += 1
 
         elif is_function(token):
             push(token, operators)
+            processed_tokens += 1
 
         elif token in lexer.OPS:
             # If there are tokens to be read then
             # 1. If the operators stack is not empty (for the first operator, we want to skip this loop and go push the token to the opeators stack)
             # 2. And the operator on teh operator stack has greater precedence (for order of operations)
-            # 3. Or they have equal precedense and the token is left associative
+            # 3. Or they have equal precedense and the token is left associative because if the tokens are 1+1+1, then we need to know which way to group them
             # 4. If the operator on the operator stack is not a "("
 
             while (
@@ -260,35 +253,31 @@ def infix(token_list):
             ):
                 # Pushing the token on top of the operators stack onto the output queue
                 enqueue(pop(operators), output)
-                iteration_num += 1
+                processed_tokens += 1
 
             push(token, operators)
 
         # This is basically useless, that is why we skip it in the operator while loop, but we still need to recognize it as an operator processed
         if token == "(":
             push(token, operators)
-            iteration_num += 1
+            processed_tokens += 1
 
         elif token == ")":
             # If the operator on the top of the operator stack is not a "(", then it is an operator, and since this is the end of the group then we have to update the output with the operator
             # If the top of the operator stack is not a "(" (Left Parenthesis)
             if peek(operators) != "(" and len(operators) != 0:
                 enqueue(pop(operators), output)
-                iteration_num += 1
-            print(operators)
+                processed_tokens += 1
+
             # Ignoring this char again, but we still need to count it as a operator operated on
             # If the top of the operator stack is a "(" (Left Parenthesis)
             if peek(operators) == "(" and len(operators) != 0:
-                print(operators, output)
                 pop(operators)
-                iteration_num += 1
+                processed_tokens += 1
 
-    if len(token_list) - 1 == iteration_num:
-        print(operators)
+    if len(token_list) - 1 == processed_tokens:
         while len(operators) != 0:
-            print(operators)
             if peek(operators) != "(":
-                print(operators)
                 enqueue(pop(operators), output)
 
     return output

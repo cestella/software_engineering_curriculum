@@ -63,3 +63,15 @@ def test_no_operator():
         pass
     else:
         raise ValueError("Expected exception, bit it didnt raise")
+
+
+def test_num():
+    assert rpn(infix(lex("1"))) == 1
+
+
+def test_decimal():
+    assert rpn(infix(lex("5.0"))) == 5.0
+
+
+def test_negative():
+    assert rpn(infix(lex("-5"))) == -5
