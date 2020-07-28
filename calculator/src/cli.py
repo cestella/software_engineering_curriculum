@@ -1,6 +1,5 @@
-#!/usr/local/bin/python3
-from lexer import lex
-from parser import rpn, infix
+from src.lexer import lexer
+from src.parser import parser
 
 def main():
     quit = False
@@ -11,9 +10,9 @@ def main():
         if user_input == "quit":
             quit = True
         else:
-            answer = lex(user_input)
-            answer = infix(answer)
-            answer = rpn(answer)
+            answer = lexer.lex(user_input)
+            answer = parser.infix(answer)
+            answer = parser.rpn(answer)
             print(answer)
 
 if __name__ == "__main__":

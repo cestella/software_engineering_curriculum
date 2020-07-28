@@ -1,5 +1,5 @@
-import lexer
 import numbers
+from src.lexer import lexer
 
 BINARY_OPERATORS = ["+", "-", "*", "/"]
 

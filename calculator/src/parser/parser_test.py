@@ -1,5 +1,5 @@
 from parser import rpn
-from lexer import lex
+from src.lexer.lexer import lex
 
 
 def test_basic():
