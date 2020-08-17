@@ -80,13 +80,14 @@ def test_negative():
 def test_negative_decimal():
     assert rpn(infix(lex("-5.0")))
 
+
 def test_multiple_levels():
     assert rpn(infix(lex("(4 + 2) / 3 * 5"))) == (4 + 2) / 3 * 5
 
+
 def test_complex_mult():
-    assert rpn(infix(lex("5 * ( 1 + 2) * 1"))) == (5 * ( 1 + 2) * 1)
+    assert rpn(infix(lex("5 * ( 1 + 2) * 1"))) == (5 * (1 + 2) * 1)
+
 
 def test_complex_division():
-    assert rpn(infix(lex("5 * ( 1 + 2) / 1"))) == (5 * ( 1 + 2) / 1)
-
-
+    assert rpn(infix(lex("5 * ( 1 + 2) / 1"))) == (5 * (1 + 2) / 1)

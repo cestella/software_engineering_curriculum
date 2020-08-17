@@ -1,5 +1,6 @@
 from src.lexer import lex
 
+
 def test_basecase():
     assert lex("1 + 1") == [1, "+", 1]
 

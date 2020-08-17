@@ -112,6 +112,7 @@ def peek(stack):
     except:
         return None
 
+
 def enqueue(value, queue):
     """
     Pushes the element (value) to the given queue, which mutates the queue
@@ -218,7 +219,7 @@ def infix(token_list):
         elif is_function(token):
             push(token, operators)
             processed_tokens += 1
-    
+
         elif token in lexer.OPS:
             # If there are tokens to be read then
             # 1. If the operators stack is not empty (for the first operator, we want to skip this loop and go push the token to the opeators stack)
@@ -267,6 +268,5 @@ def infix(token_list):
             # This doesnt work because the top of the stack is "*" because it didnt get popped
             if peek(operators) != "(":
                 enqueue(pop(operators), output)
-    
-    return output
 
+    return output
