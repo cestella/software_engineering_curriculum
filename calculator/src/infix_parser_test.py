@@ -92,5 +92,6 @@ def test_complex_mult():
 def test_complex_division():
     assert rpn(infix(lex("5 * ( 1 + 2) / 1"))) == (5 * (1 + 2) / 1)
 
+
 def test_left_to_right():
     assert rpn(infix(lex("10 * 4 / 8"))) == (10 * 4 / 8)
