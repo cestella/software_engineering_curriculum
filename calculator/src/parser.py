@@ -210,7 +210,6 @@ def infix(token_list):
 
     # Iterating through each token in the token_list
     for token in token_list:
-        print(output, operators)
         if is_numeric_token(token):
 
             enqueue(token, output)
@@ -237,7 +236,6 @@ def infix(token_list):
                 )
                 and (peek(operators) != "(")
             ):
-                print("hi")
                 # Pushing the token on top of the operators stack onto the output queue
                 enqueue(pop(operators), output)
                 processed_tokens += 1
@@ -253,7 +251,6 @@ def infix(token_list):
             # If the operator on the top of the operator stack is not a "(", then it is an operator, and since this is the end of the group then we have to update the output with the operator
             # If the top of the operator stack is not a "(" (Left Parenthesis)
             if peek(operators) != "(" and len(operators) != 0:
-                print("hi")
                 enqueue(pop(operators), output)
                 processed_tokens += 1
 
@@ -265,7 +262,6 @@ def infix(token_list):
 
     if len(token_list) - 1 == processed_tokens:
         while len(operators) != 0:
-            # This doesnt work because the top of the stack is "*" because it didnt get popped
             if peek(operators) != "(":
                 enqueue(pop(operators), output)
 

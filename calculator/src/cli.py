@@ -11,7 +11,7 @@ def main():
 
         if user_input == "quit":
             quit = True
-        elif len(strip(user_input)) == 0:
+        elif len(user_input.strip()) == 0:
             continue
         else:
             answer = lex(user_input)
