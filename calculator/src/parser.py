@@ -144,7 +144,6 @@ def rpn(tokens):
 
     # Iterating through each index in tokens
     for i in range(0, len(tokens)):
-        print(tokens, rpn_stack)
 
         current_token = tokens[i]
 
@@ -159,7 +158,6 @@ def rpn(tokens):
             # The number to the left of the operator is being taken from the stack
             lhs = pop(rpn_stack)
             # The answer of the expression using the binary_operator() function
-            # print("lhs: {} and rhs: {}".format(lhs, rhs))
 
             answer = binary_operator(lhs, rhs, current_token)
             push(answer, rpn_stack)
