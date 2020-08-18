@@ -19,8 +19,7 @@ setup(
     entry_points={"console_scripts": ["calc = src.cli:main"]},
     classifiers=(
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: APACHE License",
-        "Operating System :: OS Independent",
+        "Operating System :: OS Independent"
     ),
     keywords="calculator python package williamstella",
     install_requires=requirements,

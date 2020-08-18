@@ -138,5 +138,11 @@ exit.
   * NOTE: try to stay as close to the above pseudocode as possible; I will be looking to see if you have cribbed from existing open source python implementations.  If you do, there will be hell to pay.  This exercise is intended to demonstrate mastery of taking a nontrivial algorithm given in pseudocode and translating it to a functional representation in python.
 * Create a new test called `infix_parser_test.py` with a set of tests that ensure that the following style of computation works: `assert rpn(infix(lex('1 + 1'))) == 1 + 1`
 
-## [ ] Create a Calculator CLI REPL
+## [X] Create a Calculator CLI REPL
 I will make a command line interface where the user can install the calculator package using pip, and then just type in 'calc' into the command line, then it will show a repl in the command line.
+
+## Installation
+To install this package type in:
+```
+pip3 install pythoncalculator==1.0.0
+```
