@@ -139,4 +139,4 @@ exit.
 * Create a new test called `infix_parser_test.py` with a set of tests that ensure that the following style of computation works: `assert rpn(infix(lex('1 + 1'))) == 1 + 1`
 
 ## [ ] Create a Calculator CLI REPL
-TODO
+I will make a command line interface where the user can install the calculator package using pip, and then just type in 'calc' into the command line, then it will show a repl in the command line.

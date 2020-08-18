@@ -1,7 +1,4 @@
-from lexer import lex
-
-# Uncomment these asserts when `lex` is complete.  Also, don't forget to remove
-# the pass function body.
+from src.lexer import lex
 
 
 def test_basecase():

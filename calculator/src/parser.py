@@ -1,9 +1,9 @@
-import lexer
 import numbers
+from src import lexer
 
 BINARY_OPERATORS = ["+", "-", "*", "/"]
 
-OPS_RANKING = {"(": 1, ")": 1, "/": 2, "*": 3, "+": 4, "-": 5}
+OPS_RANKING = {"(": 1, ")": 1, "/": 2, "*": 2, "+": 3, "-": 3}
 
 OPS_ASSOSIATIVITY = {"+": "l", "-": "l", "*": "l", "/": "l"}
 
@@ -110,7 +110,7 @@ def peek(stack):
     try:
         return stack[-1]
     except:
-        pass
+        return None
 
 
 def enqueue(value, queue):
@@ -158,7 +158,6 @@ def rpn(tokens):
             # The number to the left of the operator is being taken from the stack
             lhs = pop(rpn_stack)
             # The answer of the expression using the binary_operator() function
-            # print("lhs: {} and rhs: {}".format(lhs, rhs))
 
             answer = binary_operator(lhs, rhs, current_token)
             push(answer, rpn_stack)
@@ -224,11 +223,10 @@ def infix(token_list):
             # 2. And the operator on teh operator stack has greater precedence (for order of operations)
             # 3. Or they have equal precedense and the token is left associative because if the tokens are 1+1+1, then we need to know which way to group them
             # 4. If the operator on the operator stack is not a "("
-
             while (
-                (peek(operators) != None)
+                (len(operators) != 0)
                 and (
-                    (OPS_RANKING[peek(operators)] > OPS_RANKING[token])
+                    (OPS_RANKING[peek(operators)] < OPS_RANKING[token])
                     or (
                         OPS_RANKING[peek(operators)] == OPS_RANKING[token]
                         and OPS_ASSOSIATIVITY[token] == "l"

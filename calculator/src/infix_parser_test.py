@@ -1,6 +1,6 @@
-from parser import rpn
-from lexer import lex
-from parser import infix
+from src.parser import rpn
+from src.lexer import lex
+from src.parser import infix
 
 
 def test_basic():
@@ -79,3 +79,19 @@ def test_negative():
 
 def test_negative_decimal():
     assert rpn(infix(lex("-5.0")))
+
+
+def test_multiple_levels():
+    assert rpn(infix(lex("(4 + 2) / 3 * 5"))) == (4 + 2) / 3 * 5
+
+
+def test_complex_mult():
+    assert rpn(infix(lex("5 * ( 1 + 2) * 1"))) == (5 * (1 + 2) * 1)
+
+
+def test_complex_division():
+    assert rpn(infix(lex("5 * ( 1 + 2) / 1"))) == (5 * (1 + 2) / 1)
+
+
+def test_left_to_right():
+    assert rpn(infix(lex("10 * 4 / 8"))) == (10 * 4 / 8)
