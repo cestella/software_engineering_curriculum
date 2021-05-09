@@ -8,8 +8,8 @@
 
 	
 ## Step 2
-- [ ]Implement minimax recursively, with you game board, and user input saying whether it will be O or X https://www.youtube.com/watch?v=fT3YWCKvuQE
-- [ ]Edit the main loop to include the AI player
-- [ ]Package off to pip 
+- [ ] Implement minimax recursively, with you game board, and user input saying whether it will be O or X https://www.youtube.com/watch?v=fT3YWCKvuQE
+- [ ] Edit the main loop to include the AI player
+- [ ] Package off to pip 
 
 
