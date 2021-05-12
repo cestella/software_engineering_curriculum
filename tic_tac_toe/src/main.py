@@ -2,7 +2,7 @@
 # Will hold the main control loop
 
 # TODO:
-# - Make lookup table for 2 value indexes, to machine available things
+# - Bug fix win detection 
 
 from board import Board
 
