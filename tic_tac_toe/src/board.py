@@ -8,7 +8,8 @@
 # 1 = O
 #
 
-class Board():
+
+class Board:
     def __init__(self):
         self.values = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -17,13 +18,8 @@ class Board():
     def render_board(self):
         return self.template.format(*self.values)
 
-    def raw_board(self):       
+    def raw_board(self):
         return self.values
 
     def update(self, index, value):
         self.values[int(index)] = value
-
-
-
-
-

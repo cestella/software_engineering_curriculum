@@ -2,14 +2,15 @@
 # Will hold the main control loop
 
 # TODO:
-# - Bug fix win detection 
+# - Bug fix win detection
 
 from board import Board
+
 
 def main():
 
     playing = True
-    
+
     while playing == True:
         print("You are playing Tic-Tac-Toe")
         print("P1 is X and P2 is O")
@@ -22,11 +23,20 @@ def main():
 
             X_index_1 = input("Player 1, what is your first index?")
             X_index_2 = input("Player 1, what is your second index?")
-            
+
             X_index_list = [str(X_index_1), str(X_index_2)]
-           
-            lookup_table = {"['1', '1']":"0", "['1', '2']":"1", "['1', '3']":"2", "['2', '1']":"3", "['2', '2']":"4", "['3', '1']":"6", "['3', '2']":"7", "['3', '3']":"8"}    
- 
+
+            lookup_table = {
+                "['1', '1']": "0",
+                "['1', '2']": "1",
+                "['1', '3']": "2",
+                "['2', '1']": "3",
+                "['2', '2']": "4",
+                "['3', '1']": "6",
+                "['3', '2']": "7",
+                "['3', '3']": "8",
+            }
+
             board.update(lookup_table[str(X_index_list)], "-1")
 
             if board.values[0] == -1:
@@ -63,18 +73,16 @@ def main():
                         break
 
             if board.values[2] == -1:
-                if board.values[4] == -1:       
+                if board.values[4] == -1:
                     if board.values[6] == -1:
                         break
 
-
             O_index_1 = input("Player 2, what is your first index?")
             O_index_2 = input("Player 2, what is your second index?")
-            
+
             O_index_list = [str(O_index_1), str(O_index_2)]
 
             board.update(lookup_table[str(O_index_list)], "1")
-
 
             if board.values[0] == 1:
                 if board.values[1] == 1:
@@ -110,11 +118,11 @@ def main():
                         game_over = True
 
             if board.values[2] == 1:
-                if board.values[4] == 1:       
+                if board.values[4] == 1:
                     if board.values[6] == 1:
                         game_over = True
 
-
         print("Someone won!")
+
 
 main()
