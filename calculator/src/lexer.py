@@ -4,32 +4,32 @@ OPS_WITHOUT_SUBTRACTION = ["+", "*", "/"]
 
 def is_numeric_char(char):
     """
-        Determines if a character is a numeric character (i.e. a character which may appear in a number).
+    Determines if a character is a numeric character (i.e. a character which may appear in a number).
 
-        Parameters
-        ----------
-        char : char
-            The character to be evaluated
+    Parameters
+    ----------
+    char : char
+        The character to be evaluated
 
-        Returns
-        -------
-        bool: Whether or not this character is a numeric character.
+    Returns
+    -------
+    bool: Whether or not this character is a numeric character.
     """
     return char.isdigit() or char == "."
 
 
 def convert_string(s):
     """
-        Converts a string to the appropriate type, either a float type or a int type
+    Converts a string to the appropriate type, either a float type or a int type
 
-        Parameters
-        ----------
-        s : string
-            The string that should be converted
-        
-        Returns
-        -------
-        float or int : The numerical representation of "s"
+    Parameters
+    ----------
+    s : string
+        The string that should be converted
+
+    Returns
+    -------
+    float or int : The numerical representation of "s"
     """
     if "." in s:
         return float(s)
@@ -38,17 +38,17 @@ def convert_string(s):
 
 
 def is_op(char):
-    """  
-        Checks if a char is an operator
+    """
+    Checks if a char is an operator
 
-        Parameters
-        ----------
-        char : char
-            The character that is going to be checked
+    Parameters
+    ----------
+    char : char
+        The character that is going to be checked
 
-        Returns
-        -------
-        bool : Whether or not char is an operator
+    Returns
+    -------
+    bool : Whether or not char is an operator
     """
 
     return char in OPS
@@ -56,32 +56,32 @@ def is_op(char):
 
 def is_op_not_subtract(char):
     """
-        Checks whether a char is an operator that is not subtraction
+    Checks whether a char is an operator that is not subtraction
 
-        Parameters
-        ----------
-        char : char
-            The charactere that is going to be checked
+    Parameters
+    ----------
+    char : char
+        The charactere that is going to be checked
 
-        Returns
-        -------
-        bool: Whether the character is an operator
+    Returns
+    -------
+    bool: Whether the character is an operator
     """
     return char in OPS_WITHOUT_SUBTRACTION
 
 
 def is_parenthesis(char):
     """
-        Checks whether a char is a parenthesis 
+    Checks whether a char is a parenthesis
 
-        Parameters
-        ----------
-        char : char
-        The charactere that is going to be checked
+    Parameters
+    ----------
+    char : char
+    The charactere that is going to be checked
 
-        Returns
-        -------
-        bool: Whether the character is a parenthesis
+    Returns
+    -------
+    bool: Whether the character is a parenthesis
     """
 
     if char in ["(", ")"]:

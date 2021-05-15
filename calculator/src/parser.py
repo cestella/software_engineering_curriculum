@@ -20,10 +20,10 @@ def binary_operator(lhs, rhs, op):
     ----------
     lhs : integer or float
         The first number to be operated on, will be on the left hand side of the op
-    
+
     rhs : integer or float
         The second number to be operated on, will be on the right hand side of the op
-    
+
     op : string
         The operator that is going to be applied to the numbers
 
@@ -191,11 +191,11 @@ def infix(token_list):
     token_list : list
         The list of infix tokens
 
-    Returns 
+    Returns
     --------
     output : list
         This is the output queue where the final answer is arranged
-    
+
     """
 
     # Output Queue
