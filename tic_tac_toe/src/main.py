@@ -6,6 +6,23 @@
 
 from board import Board
 
+def get_move(player):
+    index = input("Player {player}, please put your move in, comma seperated, no spaces!")
+    
+    index_list = list(index) 
+ 
+    return index_list
+
+
+def validate_move(index, player, board):
+    
+    if board.values[index] == 
+
+
+def is_winning(board):
+    
+    pass`
+
 
 def main():
 
@@ -21,11 +38,6 @@ def main():
 
         while game_over == False:
 
-            X_index_1 = input("Player 1, what is your first index?")
-            X_index_2 = input("Player 1, what is your second index?")
-
-            X_index_list = [str(X_index_1), str(X_index_2)]
-
             lookup_table = {
                 "['1', '1']": "0",
                 "['1', '2']": "1",
@@ -35,7 +47,7 @@ def main():
                 "['2', '3']": "5",
                 "['3', '1']": "6",
                 "['3', '2']": "7",
-                "['3', '3']": "8",
+                "['3', '3']": "8"
             }
 
             who_won = None
@@ -104,10 +116,9 @@ def main():
 
             print(board.render_board())
 
-            O_index_1 = input("Player 2, what is your first index?")
-            O_index_2 = input("Player 2, what is your second index?")
-
-            O_index_list = [str(O_index_1), str(O_index_2)]
+            o_index = input("Player 1, please put your move in, comma seperated, no spaces!")
+    
+            o_index_list = list(x_index)
 
             for e in board.values:
 
