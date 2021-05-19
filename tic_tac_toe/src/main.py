@@ -182,6 +182,9 @@ def main():
 
             print(board.render_board())
 
+        yes_choices = ["yes", "Yes", "YES", "Y", "y"]
+        no_choices = ["no", "No", "NO", "N", "n"]        
+
         if who_won == "X":
             print("Player 1 Won!")
 
@@ -193,11 +196,12 @@ def main():
 
         play_again = input("If you want to play again, say yes, if not, say no!")
 
-        if play_again == "yes":
+        if play_again in yes_choices:
             pass
 
-        else:
-            playing = False
+        elif playing_again in no_choices:
+            return 
 
+if __name__ == "__main__":
+    main()
 
-main()
