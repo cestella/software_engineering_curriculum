@@ -20,7 +20,7 @@ class Board:
         self.winner = None
 
     def _convert(self, x, y):
-        return (x*int(self.dim))+y
+        return ((x*int(self.dim))+y)-1
 
     def render_board(self):
         return self.template.format(*self.values)
@@ -36,9 +36,7 @@ class Board:
 
     def get_value(self, x, y):
         
-        1d = self._convert(x, y)
-
-        return self.values[1d]
+        return self.values[self._convert(x, y)]
 
     def get_move(self, player):
         index = input("Player {player}, please put your move in, comma seperated, no spaces!")
@@ -48,19 +46,19 @@ class Board:
         return index_list
 
     def validate_move(self, x, y, player):
-        1d_index = self._convert(x, y)
+        _index = self._convert(x, y)
 
-        if self.values[1d_index] == None:
+        if self.values[_index] == None:
             return True
 
-        elif self.values[1d_index] == "X":
+        elif self.values[_index] == "X":
             if player == "X":
                 return True
 
             elif player == "O":
                 return False
 
-        elif self.values[1d_index] == "O":
+        elif self.values[_index] == "O":
             if player == "O":
                 return True
 
@@ -74,12 +72,22 @@ class Board:
             x_row = 0
             o_row = 0
             for j in range(0, int(self.dim)):
-                1d_index = self._convert(i, j)
-                if board[int(1d_index)] == "X":
+                _index = self._convert(i, j)
+                if self.values[int(_index)] == "X":
                     x_row += 1
                     
-                if board[int(1d_index)] == "O":
+                if self.values[int(_index)] == "O":
                     o_row += 1
 
             if x_row == self.dim or o_row == self.dim:
                 return "won"
+
+board = Board(3)
+
+print(board.render_board())
+board.update_values(1, 1, "X")
+board.update_values(1, 2, "X")
+board.update_values(1, 3, "X")
+
+print(board.render_board())
+print(board.get_board_state(board))
