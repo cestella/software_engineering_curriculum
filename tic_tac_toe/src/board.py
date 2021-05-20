@@ -91,3 +91,19 @@ board.update_values(1, 3, "X")
 
 print(board.render_board())
 print(board.get_board_state(board))
+
+def update_row(board):
+    board.update_values(1, 1, "X")
+    board.update_values(1, 2, "X")
+    board.update_values(1, 3, "X")
+
+def update_diagonal(board):
+    board.update_values(1, 1, "X")
+    board.update_values(2, 2, "X")
+    board.update_values(3, 3, "X")
+
+def update_column(board):
+    board.update_values(1, 1, "X")
+    board.update_values(2, 1, "X")
+    board.update_values(3, 1, "X")
+
