@@ -28,7 +28,7 @@ class Board:
             return False
     
         else:
-            return ((x*int(self.dim))+y)-1
+            return (((y-1)*int(self.dim))+(x-1))
 
 
     def render_board(self):
@@ -79,32 +79,45 @@ class Board:
                 return False
 
 
-    def get_board_state(self, board):
+    def check_won(self, board):
         # Check of someone has won      
  
-         for i in range(0, int(self.dim)):
-            x_row = 0
-            o_row = 0
-            for j in range(0, int(self.dim)):
-                _index = self._convert(i, j)
-                if self.values[int(_index)] == "X":
-                    x_row += 1
-                    
-                if self.values[int(_index)] == "O":
-                    o_row += 1
+        board_width = 3
+        winner = None
+        
+        for i in range(0, board_width):
+            values = set()
+            for j in range(0, board_width):
+                index = self._convert(i, j) + 1
+                if board.values[index] != None:
+                    values.add(board.values[index])
+            if len(values) == 1:
+                winner = list(values)[0]
+                break
+            return winner
 
-            if x_row == self.dim or o_row == self.dim:
-                return "won"
+        for i in range(0, board_width):
+            values = set()
+            for j in range(0, board_width):
+                index = self._convert(j, i) + 1
+                if board.values[index] != None:
+                    values.add(board.values[index])
+            if len(values) == 1:
+                winner = list(values)[0]
+                break
+            return winner
 
-board = Board(3)
+        for i in range(0, board_width):
+            values = set()
+            for j in range(0, board_width):
+                index = self._convert(j, i) + 1
+                if board.values[index] != None:
+                    values.add(board.values[index])
+            if len(values) == 1:
+                winner = list(values)[0]
+                break
+            return winner
 
-print(board.render_board())
-board.update_values(1, 1, "X")
-board.update_values(1, 2, "X")
-board.update_values(1, 3, "X")
-
-print(board.render_board())
-print(board.get_board_state(board))
 
 def update_row(board):
     board.update_values(1, 1, "X")
@@ -121,4 +134,11 @@ def update_column(board):
     board.update_values(2, 1, "X")
     board.update_values(3, 1, "X")
 
+board = Board(3)
+
+print(board.render_board())
+update_column(board)
+
+print(board.render_board())
+print(board.check_won(board))
 
