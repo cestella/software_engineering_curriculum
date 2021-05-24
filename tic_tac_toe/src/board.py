@@ -79,7 +79,7 @@ class Board:
                 return False
 
 
-    def check_won(self, board):
+    def check_won(self, board, x_or_o):
         # Check of someone has won      
  
         board_width = 3
@@ -107,17 +107,13 @@ class Board:
                 break
             return winner
 
-        for i in range(0, board_width):
-            values = set()
-            for j in range(0, board_width):
-                index = self._convert(j, i) + 1
-                if board.values[index] != None:
-                    values.add(board.values[index])
-            if len(values) == 1:
-                winner = list(values)[0]
-                break
-            return winner
+        if board.values[0] == x_or_o and board.values[4] == x_or_o and board.vlaues[8] == x_or_o:
+            winner = x_or_o  
+            return winner 
 
+        if board.values[2] == x_or_o and board.values[4] == x_or_o and board.vlaues[6] == x_or_o:
+            winner = x_or_o  
+            return winner 
 
 def update_row(board):
     board.update_values(1, 1, "X")
@@ -134,6 +130,19 @@ def update_column(board):
     board.update_values(2, 1, "X")
     board.update_values(3, 1, "X")
 
+def test_column(board):
+    update_column(board)
+    assert board.check_won(board) == "X"
+
+
+def test_row(board):
+    update_row(board)
+    assert board.check_won(board) == "X"
+
+def test_diagonal(board):
+    update_diagonal(board)
+    assert board.check_won(board) == "X
+"
 board = Board(3)
 
 print(board.render_board())
