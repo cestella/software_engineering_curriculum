@@ -79,7 +79,7 @@ class Board:
                 return False
 
 
-    def check_won(self, board, x_or_o):
+    def check_row(self, board, x_or_o):
         # Check of someone has won      
  
         board_width = 3
@@ -96,16 +96,39 @@ class Board:
                 break
             return winner
 
+
+    def check_column(self, board, x_or_o):
+        # Check of someone has won      
+ 
+        board_width = 3
+        winner = None
+
         for i in range(0, board_width):
-            values = set()
+            val_1 = set()
+            val_2 = set()
+            val_3 = set()
+
             for j in range(0, board_width):
-                index = self._convert(j, i) + 1
-                if board.values[index] != None:
-                    values.add(board.values[index])
-            if len(values) == 1:
-                winner = list(values)[0]
+                index = self._convert(i, j) + 1
+                print(index)
+
+                if j == 0 and board.values[index] != None:
+                    val_1.add(board.values[index])
+                elif j == 1 and board.values[index] != None:
+                    val_2.add(board.values[index])
+                elif j == 2 and board.values[index] != None:
+                    val_3.add(board.values[index])
+
+            if len(val_1) == 1 or len(val_2) == 1 or len(val_3) == 1:
+                winner = list(val_1)[0]
                 break
             return winner
+
+    def check_diagonal(self, board, x_or_o):
+        # Check of someone has won      
+ 
+        board_width = 3
+        winner = None
 
         if board.values[0] == x_or_o and board.values[4] == x_or_o and board.vlaues[8] == x_or_o:
             winner = x_or_o  
@@ -132,22 +155,27 @@ def update_column(board):
 
 def test_column(board):
     update_column(board)
-    assert board.check_won(board) == "X"
+    assert board.check_column(board, "X") == "X"
 
 
 def test_row(board):
     update_row(board)
-    assert board.check_won(board) == "X"
+    assert board.check_row(board, "X") == "X"
 
 def test_diagonal(board):
     update_diagonal(board)
-    assert board.check_won(board) == "X
-"
+    assert board.check_diagonal(board, "X") == "X"
+#def test_column(board):
+#    update_column(board)
+#    assert board.check_column(board) == "X"
+
+
 board = Board(3)
 
-print(board.render_board())
+test_column(board)
+test_row(board)
+test_diagonal(board)
+test_column(board)
+
 update_column(board)
-
-print(board.render_board())
-print(board.check_won(board))
-
+check_column(board, "X")
