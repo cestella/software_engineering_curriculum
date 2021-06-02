@@ -11,8 +11,8 @@
 
 class Board:
     def __init__(self, dim):
-        
-        self.values = [None] * dim**2
+
+        self.values = [None] * dim ** 2
 
         self.template = "{}|{}|{}\n-------\n{}|{}|{}\n-------\n{}|{}|{}"
 
@@ -72,9 +72,9 @@ class Board:
         : boolean
         Whether or not it is a valid move
         """
-        return self.values[self.convert(x,y)] == None 
+        return self.values[self.convert(x, y)] == None
 
-    def _check_column(self,  x_or_o):
+    def _check_column(self, x_or_o):
         """
         checks if a specific player has won with a column win
         parameters
@@ -160,7 +160,7 @@ class Board:
         # Check of someone has won
         board_width = self.dim
         winner = None
-    
+
         for i in range(0, board_width):
             values = set()
             index = self.convert(i, i)
@@ -171,19 +171,17 @@ class Board:
             if x_or_o == list(values)[0]:
                 winner = True
             else:
-                winner= False
+                winner = False
 
         return winner
-                    
-    
+
     def check_winner(self, x_or_o):
-        if self._check_column(x_or_o) == True or self._check_row(x_or_o) == True or self._check_diagonal(x_or_o) == True:
+        if (
+            self._check_column(x_or_o) == True
+            or self._check_row(x_or_o) == True
+            or self._check_diagonal(x_or_o) == True
+        ):
             return True
 
         else:
             return False
-
-         
-
-
-
