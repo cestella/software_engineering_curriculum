@@ -11,7 +11,8 @@
 
 class Board:
     def __init__(self, dim):
-        self.values = [None, None, None, None, None, None, None, None, None]
+        
+        self.values = [None] * dim**2
 
         self.template = "{}|{}|{}\n-------\n{}|{}|{}\n-------\n{}|{}|{}"
 
@@ -24,21 +25,21 @@ class Board:
         converts a 2-dimensional coordinate to a 1-dimensional coordinate
         Parameters
         ----------
-        x : integer or float
+        x : integer
         the first of the two 2-dim coordinates to be operated on
 
-        y : integer or float
+        y : integer
         the first of the two 2-dim coordinates to be operated on
 
         Returns
         -------
-        integer or float : the final 1-dim coordinate
+        integer: the final 1-dim coordinate
         """
         if x < 0 or y < 0:
-            return False
+            raise ValueError("Not Proper Inputs")
 
         elif x > 3 or y > 3:
-            return False
+            raise ValueError("Not Proper Inputs")
 
         else:
             return ((y - 1) * int(self.dim)) + (x - 1)
@@ -50,7 +51,6 @@ class Board:
         -------
         string : The board rendered with an actual tic tac toe board template
         """
-
         # Print out the board, in a way humans can understand
         return self.template.format(*self.values)
 
@@ -72,26 +72,9 @@ class Board:
         : boolean
         Whether or not it is a valid move
         """
-        _index = self.convert(x, y)
+        return self.values[self.convert(x,y)] == None 
 
-        if self.values[_index] == None:
-            return True
-
-        elif self.values[_index] == "X":
-            if player == "X":
-                return False
-
-            elif player == "O":
-                return True
-
-        elif self.values[_index] == "O":
-            if player == "O":
-                return False
-
-            elif player == "X":
-                return True
-
-    def check_column(self, board, x_or_o):
+    def _check_column(self,  x_or_o):
         """
         checks if a specific player has won with a column win
         parameters
@@ -114,8 +97,8 @@ class Board:
             values = set()
             for j in range(0, board_width):
                 index = self.convert(i, j)
-                if board.values[index] != None:
-                    values.add(board.values[index])
+                if self.values[index] != None:
+                    values.add(self.values[index])
             if len(values) == 1:
                 if x_or_o == list(values)[0]:
                     winner = True
@@ -124,7 +107,7 @@ class Board:
                     winner = False
         return winner
 
-    def check_row(self, board, x_or_o):
+    def _check_row(self, x_or_o):
         """
         Checks if a specific player has won with a row win
         Parameters
@@ -140,15 +123,15 @@ class Board:
         winner : boolean
         Whether or not that player won with a row win
         """
-        board_width = 3
+        board_width = self.dim
         winner = None
 
         for i in range(0, board_width):
             values = set()
             for j in range(0, board_width):
-                index = self.convert(i, j) + 1
-                if board.values[index] != None:
-                    values.add(board.values[index])
+                index = self.convert(j, i)
+                if self.values[index] != None:
+                    values.add(self.values[index])
             if len(values) == 1:
                 if x_or_o == list(values)[0]:
                     winner = True
@@ -157,7 +140,7 @@ class Board:
                     winner = False
         return winner
 
-    def check_diagonal(self, board, x_or_o):
+    def _check_diagonal(self, x_or_o):
         """
         Checks if a specific player has won with a diagonal win
         Parameters
@@ -175,29 +158,32 @@ class Board:
         """
 
         # Check of someone has won
-
-        board_width = 3
+        board_width = self.dim
         winner = None
+    
+        for i in range(0, board_width):
+            values = set()
+            index = self.convert(i, i)
+            if self.values[index] != None:
+                values.add(self.values[index])
 
-        if (
-            board.values[0] == x_or_o
-            and board.values[4] == x_or_o
-            and board.values[8] == x_or_o
-        ):
-            winner = True
-            return winner
+        if len(values) == 1:
+            if x_or_o == list(values)[0]:
+                winner = True
+            else:
+                winner= False
 
-        elif (
-            board.values[2] == x_or_o
-            and board.values[4] == x_or_o
-            and board.values[6] == x_or_o
-        ):
-            winner = True
-            return winner
+        return winner
+                    
+    
+    def check_winner(self, x_or_o):
+        if self._check_column(x_or_o) == True or self._check_row(x_or_o) == True or self._check_diagonal(x_or_o) == True:
+            return True
 
         else:
-            winner = False
-            return winner
+            return False
+
+         
 
 
 
