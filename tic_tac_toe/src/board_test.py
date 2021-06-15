@@ -84,8 +84,7 @@ def test_column_1(board):
 
 def test_column_2(board):
     update_column_2(board)
-    print(board.check_winner("X"), board.check_winner("O"))
-    assert board.check_winner("X") == False and board.check_winner("O") == False
+    assert board._check_column("X") == False and board._check_column("O") == False
 
 
 def test_column_3(board):
@@ -156,30 +155,45 @@ def test_validate_move_2(board):
 
 
 board = Board(3)
-test_column_1(board)
+#test_column_1(board)
+
 board = Board(3)
-# test_column_2(board)
+test_column_2(board)
+
 board = Board(3)
-test_column_3(board)
+#test_column_3(board)
+
 board = Board(3)
-# test_column_4(board)
+#test_column_4(board)
+
+"""
 board = Board(3)
 test_row_1(board)
+
 board = Board(3)
 # test_row_2(board)
+
 board = Board(3)
 test_row_3(board)
+
 board = Board(3)
 # test_row_4(board)
+
 board = Board(3)
 test_diagonal_1(board)
+
 board = Board(3)
 # test_diagonal_2(board)
+
 board = Board(3)
 # test_diagonal_3(board)
+
 board = Board(3)
 test_diagonal_4(board)
+
 board = Board(3)
 test_validate_move_1(board)
+
 board = Board(3)
 test_validate_move_2(board)
+"""
