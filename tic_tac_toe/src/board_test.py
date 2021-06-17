@@ -159,7 +159,7 @@ board = Board(3)
 test_column_4(board)
 
 board = Board(3)
-# test_row_1(board)
+test_row_1(board)
 
 board = Board(3)
 test_row_2(board)
