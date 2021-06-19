@@ -150,17 +150,17 @@ class Board:
         board_width = self.dim
         winner = None
         values = set()
-
         for i in range(0, board_width):
             index = self.convert(i + 1, i + 1)
-            if self.values[index] != None:
-                values.add(self.values[index])
-
-            if len(values) == 1:
-                if x_or_o == list(values)[0]:
-                    winner = True
+            values.add(self.values[index])
+        if len(values) == 1:
+            if x_or_o == list(values)[0]:
+                winner = True
+                return winner
             else:
                 winner = False
+        else:
+            winner = False
         return winner
 
     def check_winner(self, x_or_o):

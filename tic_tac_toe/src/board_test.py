@@ -124,7 +124,7 @@ def test_diagonal_1(board):
 
 def test_diagonal_2(board):
     update_diagonal_2(board)
-    assert board.check_winner("X") == False and board.check_winner("O") == False
+    assert board._check_diagonal("X") == False and board._check_diagonal("O") == False
 
 
 def test_diagonal_3(board):
@@ -171,16 +171,16 @@ board = Board(3)
 test_row_4(board)
 
 board = Board(3)
-# test_diagonal_1(board)
+test_diagonal_1(board)
 
 board = Board(3)
 test_diagonal_2(board)
 
 board = Board(3)
-# test_diagonal_3(board)
+test_diagonal_3(board)
 
 board = Board(3)
-# test_diagonal_4(board)
+test_diagonal_4(board)
 
 board = Board(3)
 test_validate_move_1(board)
