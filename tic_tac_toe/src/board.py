@@ -6,9 +6,9 @@ class Board:
 
         self.values = [None] * dim ** 2
 
-        self.template = "{}|{}|{}\n-------\n{}|{}|{}\n-------\n{}|{}|{}"
-
         self.dim = dim
+
+        self.template = ("{}|{}|{}\n-------\n" * int(self.dim - 1)) + "{}|{}|{}"
 
         self.winner = None
 
@@ -30,11 +30,11 @@ class Board:
         if x < 0 or y < 0:
             raise ValueError("Not Proper Inputs")
 
-        elif x > 3 or y > 3:
+        elif x > 2 or y > 2:
             raise ValueError("Not Proper Inputs")
 
         else:
-            return ((y - 1) * int(self.dim)) + (x - 1)
+            return ((y) * int(self.dim)) + (x)
 
     def render_board(self):
         """
@@ -82,7 +82,7 @@ class Board:
         winner : boolean
         whether or not that player won with a column win
         """
-        board_width = 3
+        board_width = self.dim
         winner = None
 
         for i in range(0, board_width):
@@ -116,11 +116,10 @@ class Board:
         """
         board_width = self.dim
         winner = None
-
         for i in range(0, board_width):
             values = set()
             for j in range(0, board_width):
-                index = self.convert(j+1, i+1)
+                index = self.convert(j, i)
                 if self.values[index] != None:
                     values.add(self.values[index])
             if len(values) == 1:
@@ -151,7 +150,7 @@ class Board:
         winner = None
         values = set()
         for i in range(0, board_width):
-            index = self.convert(i + 1, i + 1)
+            index = self.convert(i, i)
             values.add(self.values[index])
         if len(values) == 1:
             if x_or_o == list(values)[0]:
@@ -163,13 +162,13 @@ class Board:
             winner = False
         return winner
 
-    def check_winner(self, x_or_o):
-        if (
-            self._check_column(x_or_o) == True
-            or self._check_row(x_or_o) == True
-            or self._check_diagonal(x_or_o) == True
-        ):
+    def check_winner(self, x_or_o, tof):
+        if self._check_column(x_or_o) == tof:
             return True
-
+        elif self._check_row(x_or_o) == tof:
+            return True
+        elif self._check_diagonal(x_or_o) == tof:
+            return True
         else:
             return False
+        print(self.template)
