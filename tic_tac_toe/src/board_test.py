@@ -64,6 +64,7 @@ def update_diagonal_4():
     board.values[board.convert(2, 2)] = None
     return board
 
+
 def update_diagonal_5():
     board = Board(3)
     board.values[board.convert(0, 2)] = "X"
@@ -196,11 +197,11 @@ def test_diagonal_4():
         and board.check_winner("O", False) == True
     )
 
+
 def test_diagonal_5():
     board = update_diagonal_5()
     assert (
-        board.check_winner("X", True) == True
-        and board.check_winner("O", False) == True
+        board.check_winner("X", True) == True and board.check_winner("O", False) == True
     )
 
 

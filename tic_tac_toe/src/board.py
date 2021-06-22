@@ -5,10 +5,10 @@ class Board:
     def __init__(self, dim):
 
         self.values = [None] * dim ** 2
-    
-        self.dim = dim   
-     
-        self.template = ('{}|{}|{}\n-------\n' * int(self.dim-1)) + '{}|{}|{}'
+
+        self.dim = dim
+
+        self.template = ("{}|{}|{}\n-------\n" * int(self.dim - 1)) + "{}|{}|{}"
 
         self.winner = None
 
@@ -163,7 +163,7 @@ class Board:
                 winner = False
         else:
             winner = False
-    
+
         if len(values2) == 1 and winner == False:
             if x_or_o == list(values2)[0]:
                 winner = True
