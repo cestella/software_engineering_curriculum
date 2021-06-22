@@ -5,10 +5,10 @@ class Board:
     def __init__(self, dim):
 
         self.values = [None] * dim ** 2
-
-        self.dim = dim
-
-        self.template = ("{}|{}|{}\n-------\n" * int(self.dim - 1)) + "{}|{}|{}"
+    
+        self.dim = dim   
+     
+        self.template = ('{}|{}|{}\n-------\n' * int(self.dim-1)) + '{}|{}|{}'
 
         self.winner = None
 
@@ -149,11 +149,23 @@ class Board:
         board_width = self.dim
         winner = None
         values = set()
+        values2 = set()
         for i in range(0, board_width):
             index = self.convert(i, i)
+            index2 = self.convert(i, (-i + 2))
             values.add(self.values[index])
+            values2.add(self.values[index2])
         if len(values) == 1:
             if x_or_o == list(values)[0]:
+                winner = True
+                return winner
+            else:
+                winner = False
+        else:
+            winner = False
+    
+        if len(values2) == 1 and winner == False:
+            if x_or_o == list(values2)[0]:
                 winner = True
                 return winner
             else:
@@ -171,4 +183,3 @@ class Board:
             return True
         else:
             return False
-        print(self.template)

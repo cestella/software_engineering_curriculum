@@ -61,7 +61,14 @@ def update_diagonal_4():
     board = Board(3)
     board.values[board.convert(0, 0)] = None
     board.values[board.convert(1, 1)] = None
-    board.values[board.convert(1, 1)] = None
+    board.values[board.convert(2, 2)] = None
+    return board
+
+def update_diagonal_5():
+    board = Board(3)
+    board.values[board.convert(0, 2)] = "X"
+    board.values[board.convert(1, 1)] = "X"
+    board.values[board.convert(2, 0)] = "X"
     return board
 
 
@@ -189,6 +196,13 @@ def test_diagonal_4():
         and board.check_winner("O", False) == True
     )
 
+def test_diagonal_5():
+    board = update_diagonal_5()
+    assert (
+        board.check_winner("X", True) == True
+        and board.check_winner("O", False) == True
+    )
+
 
 def test_validate_move_1():
     board = validate_move_update_1()
@@ -209,5 +223,6 @@ test_diagonal_1()
 test_diagonal_2()
 test_diagonal_3()
 test_diagonal_4()
+test_diagonal_5()
 
 test_validate_move_1()
