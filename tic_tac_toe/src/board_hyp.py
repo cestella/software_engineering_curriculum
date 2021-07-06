@@ -10,6 +10,8 @@ class Board:
 
         self.template = ("{}|{}|{}\n-------\n" * int(self.dim - 1)) + "{}|{}|{}"
 
+        self.winner = None
+
     def convert(self, x, y):
         """
         converts a 2-dimensional coordinate to a 1-dimensional coordinate
@@ -32,7 +34,7 @@ class Board:
             raise ValueError("Not Proper Inputs")
 
         else:
-            return ((int(y)) * int(self.dim)) + (int(x))
+            return ((y) * int(self.dim)) + (x)
 
     def render_board(self):
         """
@@ -44,15 +46,15 @@ class Board:
         # Print out the board, in a way humans can understand
         return self.template.format(*self.values)
 
-    def validate_move(self, x, y):
+    def validate_move(self, x, y, player):
         """
         Takes in a move as 2-dim coordinates, and a player, and validates that it is a valid move
         Parameters
         ----------
-        x : integer
+        x : integer or float
         The first of the two 2-dim coordinates to be operated on
 
-        y : integer
+        y : integer or float
         The first of the two 2-dim coordinates to be operated on
 
         player : string
@@ -83,14 +85,14 @@ class Board:
         board_width = self.dim
         winner = None
 
-        for row in range(0, board_width):
+        for i in range(0, board_width):
             values = set()
-            for col in range(0, board_width):
-                index = self.convert(row, col)
-                if self.validate_move(self.values[index]):
+            for j in range(0, board_width):
+                index = self.convert(i, j)
+                if self.values[index] != None:
                     values.add(self.values[index])
             if len(values) == 1:
-                if x_or_o == next(iter(values)):
+                if x_or_o == list(values)[0]:
                     winner = True
             else:
                 winner = False
@@ -114,10 +116,10 @@ class Board:
         """
         board_width = self.dim
         winner = None
-        for row in range(0, board_width):
+        for i in range(0, board_width):
             values = set()
-            for col in range(0, board_width):
-                index = self.convert(col, row)
+            for j in range(0, board_width):
+                index = self.convert(j, i)
                 if self.values[index] != None:
                     values.add(self.values[index])
             if len(values) == 1:
@@ -146,15 +148,15 @@ class Board:
         # Check of someone has won
         board_width = self.dim
         winner = None
-        values_rtl = set()
-        values_ltr = set()
-        for row in range(0, board_width):
-            index_rtl = self.convert(row, row)
-            index_ltr = self.convert(row, (-row + 2))
-            values_rtl.add(self.values[index])
-            values_ltr.add(self.values[index_set_2])
-        if len(values_rtl) == 1:
-            if x_or_o == list(values_rtl)[0]:
+        values = set()
+        values2 = set()
+        for i in range(0, board_width):
+            index = self.convert(i, i)
+            index2 = self.convert(i, (-i + 2))
+            values.add(self.values[index])
+            values2.add(self.values[index2])
+        if len(values) == 1:
+            if x_or_o == list(values)[0]:
                 winner = True
                 return winner
             else:
@@ -162,8 +164,8 @@ class Board:
         else:
             winner = False
 
-        if len(values_ltr) == 1 and winner == False:
-            if x_or_o == list(values_ltr)[0]:
+        if len(values2) == 1 and winner == False:
+            if x_or_o == list(values2)[0]:
                 winner = True
                 return winner
             else:

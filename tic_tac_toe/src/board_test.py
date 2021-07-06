@@ -1,122 +1,85 @@
 from board import Board
 
 
-def update_column_1():
-    board = Board(3)
-    board.values[board.convert(0, 0)] = "X"
-    board.values[board.convert(1, 0)] = "X"
-    board.values[board.convert(2, 0)] = "X"
-    return board
+    
 
 
-def update_column_2():
-    board = Board(3)
-    board.values[board.convert(0, 0)] = "X"
-    board.values[board.convert(1, 0)] = None
-    board.values[board.convert(2, 0)] = "O"
-    return board
+    
+    
 
 
-def update_column_3():
-    board = Board(3)
-    board.values[board.convert(0, 0)] = None
-    board.values[board.convert(1, 0)] = None
-    board.values[board.convert(2, 0)] = None
-    return board
-
-
-def update_column_4():
-    board = Board(3)
-    board.values[board.convert(0, 0)] = "X"
-    board.values[board.convert(1, 0)] = "O"
-    board.values[board.convert(2, 0)] = "O"
-    return board
-
-
-def update_diagonal_1():
-    board = Board(3)
-    board.values[board.convert(0, 0)] = "X"
-    board.values[board.convert(1, 1)] = "X"
-    board.values[board.convert(2, 2)] = "X"
-    return board
-
-
-def update_diagonal_2():
+   
+    
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(1, 1)] = None
     board.values[board.convert(2, 2)] = "O"
-    return board
 
 
-def update_diagonal_3():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(1, 1)] = "O"
     board.values[board.convert(2, 2)] = "X"
-    return board
 
 
-def update_diagonal_4():
     board = Board(3)
     board.values[board.convert(0, 0)] = None
     board.values[board.convert(1, 1)] = None
     board.values[board.convert(2, 2)] = None
-    return board
 
 
-def update_diagonal_5():
     board = Board(3)
     board.values[board.convert(0, 2)] = "X"
     board.values[board.convert(1, 1)] = "X"
     board.values[board.convert(2, 0)] = "X"
-    return board
 
 
-def update_row_1():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(0, 1)] = "X"
     board.values[board.convert(0, 2)] = "X"
-    return board
 
 
-def update_row_2():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(0, 1)] = None
     board.values[board.convert(0, 2)] = "O"
-    return board
 
 
-def update_row_3():
     board = Board(3)
     board.values[board.convert(0, 0)] = None
     board.values[board.convert(0, 1)] = None
     board.values[board.convert(0, 2)] = None
-    return board
 
 
-def update_row_4():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(0, 1)] = "O"
     board.values[board.convert(0, 2)] = "O"
-    return board
 
 
-def validate_move_update_1():
+def validate_move_update():
     board = Board(3)
     board.values[0] = "X"
     return board
 
 
 def test_column_1():
+    board = Board(3)
+    board.values[board.convert(0, 0)] = "X"
+    board.values[board.convert(1, 0)] = "X"
+    board.values[board.convert(2, 0)] = "X"
     board = update_column_1()
     assert board.check_winner("X", True) == True
 
 
 def test_column_2():
+    board = Board(3)
+    board.values[board.convert(0, 0)] = "X"
+    board.values[board.convert(1, 0)] = None
+    board.values[board.convert(2, 0)] = "O"
+
+
     board = update_column_2()
     assert (
         board.check_winner("X", False) == True
@@ -125,6 +88,10 @@ def test_column_2():
 
 
 def test_column_3():
+    board = Board(3)
+    board.values[board.convert(0, 0)] = None
+    board.values[board.convert(1, 0)] = None
+    board.values[board.convert(2, 0)] = None
     board = update_column_3()
     assert (
         board.check_winner("X", False) == True
@@ -133,6 +100,12 @@ def test_column_3():
 
 
 def test_column_4():
+     board = Board(3)
+    board.values[board.convert(0, 0)] = "X"
+    board.values[board.convert(1, 0)] = "O"
+    board.values[board.convert(2, 0)] = "O"
+
+
     board = update_column_4()
     assert (
         board.check_winner("X", False) == True
