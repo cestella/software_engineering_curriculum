@@ -94,7 +94,10 @@ class Board:
                     winner = True
             else:
                 winner = False
-        return winner
+        if winner != None:
+            return winner
+        else:
+            raise Exception("No-one has won?")
 
     def _check_row(self, x_or_o):
         """
@@ -125,7 +128,11 @@ class Board:
                     winner = True
             else:
                 winner = False
-        return winner
+        
+        if winner != None:
+            return winner
+        else:
+            raise Exception("No-one has won?")
 
     def _check_diagonal(self, x_or_o):
         """
@@ -170,7 +177,11 @@ class Board:
                 winner = False
         else:
             winner = False
-        return winner
+
+        if winner != None:
+            return winner
+        else:
+            raise Exception("No-one has won?")
 
     def check_winner(self, x_or_o, tof):
         if self._check_column(x_or_o) == tof:
