@@ -50,11 +50,10 @@ class Board:
         """
         board_width = self.dim
         winner = None
-
+        values = set()
         for i in range(0, board_width):
-            values = set()
             for j in range(0, board_width):
-                index = index_fn(i,j) 
+                index = index_fn(i, j)
                 if self.values[index] != None:
                     values.add(self.values[index])
             if len(values) == 1:
@@ -62,13 +61,10 @@ class Board:
                     winner = True
             else:
                 winner = False
-        print(winner)
         return winner
 
     def _check_column(self, x_or_o):
-        return self.convert_abstraction(x_or_o, lambda x, y : self.convert(x, y))
-        
-    def _check_row(self, x_or_o):
-        return self.convert_abstraction(x_or_o, lambda x, y : self.convert(y, x))
+        return self.convert_abstraction(x_or_o, lambda x, y: self.convert(x, y))
 
-   
+    def _check_row(self, x_or_o):
+        return self.convert_abstraction(x_or_o, lambda x, y: self.convert(y, x))

@@ -82,22 +82,19 @@ class Board:
         """
         board_width = self.dim
         winner = None
-
         for row in range(0, board_width):
             values = set()
             for col in range(0, board_width):
                 index = self.convert(row, col)
-                if self.validate_move(self.values[index]):
+                if self.validate_move(row, col):
                     values.add(self.values[index])
             if len(values) == 1:
                 if x_or_o == next(iter(values)):
                     winner = True
             else:
                 winner = False
-        if winner != None:
+
             return winner
-        else:
-            raise Exception("No-one has won?")
 
     def _check_row(self, x_or_o):
         """
@@ -126,13 +123,11 @@ class Board:
             if len(values) == 1:
                 if x_or_o == list(values)[0]:
                     winner = True
+                    return winner
             else:
                 winner = False
-        
-        if winner != None:
-            return winner
-        else:
-            raise Exception("No-one has won?")
+
+        return winner
 
     def _check_diagonal(self, x_or_o):
         """
@@ -158,8 +153,8 @@ class Board:
         for row in range(0, board_width):
             index_rtl = self.convert(row, row)
             index_ltr = self.convert(row, (-row + 2))
-            values_rtl.add(self.values[index])
-            values_ltr.add(self.values[index_set_2])
+            values_rtl.add(self.values[index_rtl])
+            values_ltr.add(self.values[index_ltr])
         if len(values_rtl) == 1:
             if x_or_o == list(values_rtl)[0]:
                 winner = True
@@ -178,10 +173,7 @@ class Board:
         else:
             winner = False
 
-        if winner != None:
-            return winner
-        else:
-            raise Exception("No-one has won?")
+        return winner
 
     def check_winner(self, x_or_o, tof):
         if self._check_column(x_or_o) == tof:
