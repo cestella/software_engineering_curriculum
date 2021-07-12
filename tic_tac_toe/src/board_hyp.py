@@ -32,10 +32,7 @@ class Board:
         else:
             return ((y) * int(self.dim)) + (x)
 
-    def convert_abstraction(self, x, y):
-        return self.convert(x, y)
-    
-    def _check_column(self, x_or_o, func, roc):
+    def convert_abstraction(self, x_or_o, index_fn):
         """
         checks if a specific player has won with a column win
         parameters
@@ -57,7 +54,7 @@ class Board:
         for i in range(0, board_width):
             values = set()
             for j in range(0, board_width):
-                index = func(i, j) 
+                index = index_fn(i,j) 
                 if self.values[index] != None:
                     values.add(self.values[index])
             if len(values) == 1:
@@ -65,7 +62,13 @@ class Board:
                     winner = True
             else:
                 winner = False
+        print(winner)
         return winner
 
+    def _check_column(self, x_or_o):
+        return self.convert_abstraction(x_or_o, lambda x, y : self.convert(x, y))
+        
+    def _check_row(self, x_or_o):
+        return self.convert_abstraction(x_or_o, lambda x, y : self.convert(y, x))
 
    

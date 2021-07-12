@@ -37,7 +37,7 @@ def test_column_3():
 
 
 def test_column_4():
-     board = Board(3)
+    board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(1, 0)] = "O"
     board.values[board.convert(2, 0)] = "O"
