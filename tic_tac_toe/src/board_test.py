@@ -7,7 +7,7 @@ def validate_move_update():
     return board
 
 
-def test_row_1():
+def test_3_x_row:
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(1, 0)] = "X"
@@ -15,7 +15,7 @@ def test_row_1():
     assert board.check_winner("X", True) == True
 
 
-def test_row_2():
+def test_x_none_o_row():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(1, 0)] = None
@@ -26,7 +26,7 @@ def test_row_2():
     )
 
 
-def test_row_3():
+def test_3_none_row():
     board = Board(3)
     board.values[board.convert(0, 0)] = None
     board.values[board.convert(1, 0)] = None
@@ -37,7 +37,7 @@ def test_row_3():
     )
 
 
-def test_row_4():
+def test_x_o_o_row():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(1, 0)] = "O"
@@ -48,7 +48,7 @@ def test_row_4():
     )
 
 
-def test_row_5():
+def test_full_board_row():
     board = Board(3)
     board.values = ["X", "X", "X", "X", "O", "X", None, None, None]
     assert (
@@ -56,7 +56,7 @@ def test_row_5():
     )
 
 
-def test_column_1():
+def test_3_x_col():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(0, 1)] = "X"
@@ -64,7 +64,7 @@ def test_column_1():
     assert board.check_winner("X", True) == True
 
 
-def test_column_2():
+def test_x_none_o_col():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(0, 1)] = None
@@ -75,7 +75,7 @@ def test_column_2():
     )
 
 
-def test_column_3():
+def test_3_none_col():
     board = Board(3)
     board.values[board.convert(0, 0)] = None
     board.values[board.convert(0, 1)] = None
@@ -86,7 +86,7 @@ def test_column_3():
     )
 
 
-def test_column_4():
+def test_x_o_o_col():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(0, 1)] = "O"
@@ -97,7 +97,7 @@ def test_column_4():
     )
 
 
-def test_diagonal_1():
+def test_x_none_o_diag():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(1, 1)] = None
@@ -106,7 +106,7 @@ def test_diagonal_1():
     assert board.check_winner("X", True) == True
 
 
-def test_diagonal_2():
+def test_x_o_x_diag():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(1, 1)] = "O"
@@ -117,7 +117,7 @@ def test_diagonal_2():
     )
 
 
-def test_diagonal_3():
+def test_3_none_diag():
     board = Board(3)
     board.values[board.convert(0, 0)] = None
     board.values[board.convert(1, 1)] = None
@@ -128,7 +128,7 @@ def test_diagonal_3():
     )
 
 
-def test_diagonal_4():
+def test_3_x_diag():
     board = Board(3)
     board.values[board.convert(0, 2)] = "X"
     board.values[board.convert(1, 1)] = "X"
