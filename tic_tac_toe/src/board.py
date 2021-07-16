@@ -8,7 +8,7 @@ class Board:
 
         self.dim = dim
 
-        self.template = ("{}|{}|{}\n-------\n" * int(self.dim - 1)) + "{}|{}|{}"
+        self.template = ("|{}|{}|{}\n-------\n" * int(self.dim - 1)) + "|{}"*int(self.dim-1)
 
     def convert(self, x, y):
         """

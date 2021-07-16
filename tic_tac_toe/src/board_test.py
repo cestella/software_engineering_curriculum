@@ -12,7 +12,7 @@ def test_3_x_row:
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(1, 0)] = "X"
     board.values[board.convert(2, 0)] = "X"
-    assert board.check_winner("X", True) == True
+    assert board.check_winner("X") == True
 
 
 def test_x_none_o_row():
@@ -21,8 +21,8 @@ def test_x_none_o_row():
     board.values[board.convert(1, 0)] = None
     board.values[board.convert(2, 0)] = "O"
     assert (
-        board.check_winner("X", False) == True
-        and board.check_winner("X", False) == True
+        board.check_winner("X") == False
+        and board.check_winner("X") == False
     )
 
 
@@ -32,8 +32,8 @@ def test_3_none_row():
     board.values[board.convert(1, 0)] = None
     board.values[board.convert(2, 0)] = None
     assert (
-        board.check_winner("X", False) == True
-        and board.check_winner("O", False) == True
+        board.check_winner("X") == False
+        and board.check_winner("O") == False
     )
 
 
@@ -43,8 +43,8 @@ def test_x_o_o_row():
     board.values[board.convert(1, 0)] = "O"
     board.values[board.convert(2, 0)] = "O"
     assert (
-        board.check_winner("X", False) == True
-        and board.check_winner("O", False) == True
+        board.check_winner("X") == False
+        and board.check_winner("O") == False
     )
 
 
@@ -52,7 +52,7 @@ def test_full_board_row():
     board = Board(3)
     board.values = ["X", "X", "X", "X", "O", "X", None, None, None]
     assert (
-        board.check_winner("X", True) == True and board.check_winner("O", False) == True
+        board.check_winner("X") == True and board.check_winner("O") == False
     )
 
 
@@ -61,7 +61,7 @@ def test_3_x_col():
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(0, 1)] = "X"
     board.values[board.convert(0, 2)] = "X"
-    assert board.check_winner("X", True) == True
+    assert board.check_winner("X") == True
 
 
 def test_x_none_o_col():
@@ -70,8 +70,8 @@ def test_x_none_o_col():
     board.values[board.convert(0, 1)] = None
     board.values[board.convert(0, 2)] = "O"
     assert (
-        board.check_winner("X", False) == True
-        and board.check_winner("O", False) == True
+        board.check_winner("X") == False
+        and board.check_winner("O") == False
     )
 
 
@@ -81,8 +81,8 @@ def test_3_none_col():
     board.values[board.convert(0, 1)] = None
     board.values[board.convert(0, 2)] = None
     assert (
-        board.check_winner("X", False) == True
-        and board.check_winner("O", False) == True
+        board.check_winner("X") == False
+        and board.check_winner("O") == False
     )
 
 
@@ -92,8 +92,8 @@ def test_x_o_o_col():
     board.values[board.convert(0, 1)] = "O"
     board.values[board.convert(0, 2)] = "O"
     assert (
-        board.check_winner("X", False) == True
-        and board.check_winner("O", False) == True
+        board.check_winner("X") == False
+        and board.check_winner("O" == False
     )
 
 
@@ -103,7 +103,7 @@ def test_x_none_o_diag():
     board.values[board.convert(1, 1)] = None
     board.values[board.convert(2, 2)] = "O"
 
-    assert board.check_winner("X", True) == True
+    assert board.check_winner("X") == True
 
 
 def test_x_o_x_diag():
@@ -112,8 +112,8 @@ def test_x_o_x_diag():
     board.values[board.convert(1, 1)] = "O"
     board.values[board.convert(2, 2)] = "X"
     assert (
-        board.check_winner("X", False) == True
-        and board.check_winner("O", False) == True
+        board.check_winner("X") == False
+        and board.check_winner("O") == False
     )
 
 
@@ -123,8 +123,8 @@ def test_3_none_diag():
     board.values[board.convert(1, 1)] = None
     board.values[board.convert(2, 2)] = None
     assert (
-        board.check_winner("X", False) == True
-        and board.check_winner("O", False) == True
+        board.check_winner("X") == False
+        and board.check_winner("O") == False
     )
 
 
@@ -134,7 +134,7 @@ def test_3_x_diag():
     board.values[board.convert(1, 1)] = "X"
     board.values[board.convert(2, 0)] = "X"
     assert (
-        board.check_winner("X", True) == True and board.check_winner("O", False) == True
+        board.check_winner("X") == True and board.check_winner("O") == False
     )
 
 
