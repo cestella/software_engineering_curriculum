@@ -1,13 +1,7 @@
-from board import Board
+from board_gen import Board
 
 
-def validate_move_update():
-    board = Board(3)
-    board.values[0] = "X"
-    return board
-
-
-def test_3_x_row:
+def test_3_x_row():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
     board.values[board.convert(1, 0)] = "X"
@@ -55,7 +49,16 @@ def test_full_board_row():
         board.check_winner("X") == True and board.check_winner("O") == False
     )
 
-
+def test_4x4_row():
+    board = Board(4)
+    board.values[board.convert(0,0)] = "X"
+    board.values[board.convert(0,1)] = "X"
+    board.values[board.convert(0,2)] = "X"
+    board.values[board.convert(0,3)] = "X"
+    assert (
+        board.check_winner("X") == True
+    )
+    
 def test_3_x_col():
     board = Board(3)
     board.values[board.convert(0, 0)] = "X"
@@ -93,7 +96,7 @@ def test_x_o_o_col():
     board.values[board.convert(0, 2)] = "O"
     assert (
         board.check_winner("X") == False
-        and board.check_winner("O" == False
+        and board.check_winner("O") == False
     )
 
 
@@ -137,26 +140,19 @@ def test_3_x_diag():
         board.check_winner("X") == True and board.check_winner("O") == False
     )
 
-
-def test_validate_move():
-    board = validate_move_update()
-    assert board.validate_move(0, 0) == False
-
-
 test_column_1()
 test_column_2()
 test_column_3()
 test_column_4()
 
-test_row_1()
-test_row_2()
-test_row_3()
-test_row_4()
-test_row_5()
-
+test_3_x_row()
+test_x_none_o_row()
+test_3_none_row()
+test_x_o_o_row()
+test_full_board_row()
+ 
 test_diagonal_1()
 test_diagonal_2()
 test_diagonal_3()
 test_diagonal_4()
 
-test_validate_move()
