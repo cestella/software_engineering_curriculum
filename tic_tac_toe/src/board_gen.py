@@ -35,14 +35,7 @@ class Board:
         -------
         integer: the final 1-dim coordinate
         """
-        if x < 0 or y < 0:
-            raise ValueError("Not Proper Inputs")
-
-        elif x > 2 or y > 2:
-            raise ValueError("Not Proper Inputs")
-
-        else:
-            return ((y) * int(self.dim)) + (x)
+        return ((y) * int(self.dim)) + (x)
 
     def convert_abstraction(self, x_or_o, index_fn):
         """
@@ -68,9 +61,12 @@ class Board:
                 index = index_fn(i, j)
                 if self.values[index] != None:
                     values.add(self.values[index])
+            print(values)
             if len(values) == 1:
                 if x_or_o == list(values)[0]:
+                    print("odd")
                     winner = True
+                    return winner
             else:
                 winner = False
         return winner
@@ -127,12 +123,12 @@ class Board:
 
         return winner
 
-    def check_winner(self, x_or_o, tof):
-        if self._check_column(x_or_o) == tof:
+    def check_winner(self, x_or_o):
+        if self._check_column(x_or_o) == True:
             return True
-        elif self._check_row(x_or_o) == tof:
+        elif self._check_row(x_or_o) == True:
             return True
-        elif self._check_diagonal(x_or_o) == tof:
+        elif self._check_diagonal(x_or_o) == True:
             return True
         else:
             return False 

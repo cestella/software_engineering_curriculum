@@ -140,19 +140,23 @@ def test_3_x_diag():
         board.check_winner("X") == True and board.check_winner("O") == False
     )
 
-test_column_1()
-test_column_2()
-test_column_3()
-test_column_4()
+"""
+test_3_x_col()
+test_x_none_o_col()
+test_3_none_col()
+test_x_o_o_col()
+"""
 
-test_3_x_row()
+
+#test_3_x_row()
 test_x_none_o_row()
 test_3_none_row()
 test_x_o_o_row()
 test_full_board_row()
+test_4x4_row()
  
-test_diagonal_1()
-test_diagonal_2()
-test_diagonal_3()
-test_diagonal_4()
+#test_x_none_o_diag()
+test_3_x_diag()
+test_3_none_diag()
+test_x_o_x_diag()
 
