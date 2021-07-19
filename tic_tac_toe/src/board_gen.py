@@ -62,13 +62,13 @@ class Board:
                 if self.values[index] != None:
                     values.add(self.values[index])
             print(values)
-            if len(values) == 1:
-                if x_or_o == list(values)[0]:
-                    print("odd")
-                    winner = True
-                    return winner
-            else:
-                winner = False
+        if len(values) == 1:
+            if x_or_o == list(values)[0]:
+                print("odd")
+                winner = True
+                return winner
+        else:
+            winner = False
         return winner
 
     def _check_column(self, x_or_o):
