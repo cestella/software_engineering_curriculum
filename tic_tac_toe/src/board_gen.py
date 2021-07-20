@@ -59,14 +59,14 @@ class Board:
         for i in range(0, board_width):
             for j in range(0, board_width):
                 index = index_fn(i, j)
-                if self.values[index] != None:
+                if self.values[index] == None:
                     values.add(self.values[index])
-            print(values)
-        if len(values) == 1:
-            if x_or_o == list(values)[0]:
-                print("odd")
-                winner = True
-                return winner
+            
+            if len(values) == 1:
+                if x_or_o == list(values)[0]:
+                    print("odd")
+                    winner = True
+                    return winner
         else:
             winner = False
         return winner
