@@ -37,6 +37,26 @@ class Board:
         """
         return ((y) * int(self.dim)) + (x)
 
+    def validate_move(self, x, y):
+        """
+        Takes in a move as 2-dim coordinates, and a player, and validates that it is a valid move
+        Parameters
+        ----------
+        x : integer
+        The first of the two 2-dim coordinates to be operated on
+
+        y : integer
+        The first of the two 2-dim coordinates to be operated on
+
+        player : string
+        "X" or "O", which player
+        Returns
+        ---------
+        : boolean
+        Whether or not it is a valid move
+        """
+        return self.values[self.convert(x, y)] != None
+
     def convert_abstraction(self, x_or_o, index_fn):
         """
         checks if a specific player has won with a column win
@@ -59,16 +79,15 @@ class Board:
         for i in range(0, board_width):
             for j in range(0, board_width):
                 index = index_fn(i, j)
-                if self.values[index] == None:
+                if self.validate_move(i, j):
                     values.add(self.values[index])
             
             if len(values) == 1:
-                if x_or_o == list(values)[0]:
-                    print("odd")
+                if x_or_o == next(iter(values)):
                     winner = True
-                    return winner
-        else:
-            winner = False
+            else:
+                winner = False
+
         return winner
 
     def _check_column(self, x_or_o):
@@ -103,23 +122,21 @@ class Board:
             index_ltr = self.convert(row, (-row + 2))
             values_rtl.add(self.values[index_rtl])
             values_ltr.add(self.values[index_ltr])
-        if len(values_rtl) == 1:
-            if x_or_o == list(values_rtl)[0]:
-                winner = True
-                return winner
+            if len(values_rtl) == 1:
+                if x_or_o == list(values_rtl)[0]:
+                    winner = True
+                    return winner
             else:
                 winner = False
-        else:
-            winner = False
 
-        if len(values_ltr) == 1 and winner == False:
-            if x_or_o == list(values_ltr)[0]:
-                winner = True
-                return winner
+            if len(values_ltr) == 1 and winner == False:
+                if x_or_o == list(values_ltr)[0]:
+                    winner = True
+                    return winner
+                else:
+                    winner = False
             else:
                 winner = False
-        else:
-            winner = False
 
         return winner
 
