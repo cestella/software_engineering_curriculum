@@ -73,22 +73,24 @@ class Board:
         winner : boolean
         whether or not that player won with a column win
         """
-        board_width = self.dim
-        winner = None
-        values = set()
-        for i in range(0, board_width):
-            for j in range(0, board_width):
+        winner = None   
+        breakpoint()
+        for i in range(0, self.dim):
+            values = set()
+            for j in range(0, self.dim):
                 index = index_fn(i, j)
+                test_var = self.values[index]
                 if self.validate_move(i, j):
                     values.add(self.values[index])
-            
             if len(values) == 1:
                 if x_or_o == next(iter(values)):
                     winner = True
+                    return winner
             else:
                 winner = False
-
+        
         return winner
+
 
     def _check_column(self, x_or_o):
         return self.convert_abstraction(x_or_o, lambda x, y: self.convert(x, y))
