@@ -76,11 +76,11 @@ class Board:
         board_width = self.dim
         winner = None
         values = set()
+       
         for i in range(0, board_width):
             for j in range(0, board_width):
                 index = index_fn(i, j)
-                if self.validate_move(i, j):
-                    values.add(self.values[index])
+                values.add(self.values[index])
             
             if len(values) == 1:
                 if x_or_o == next(iter(values)):
