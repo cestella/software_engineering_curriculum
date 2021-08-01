@@ -96,7 +96,7 @@ class Board:
     def _check_row(self, x_or_o):
         return self.convert_abstraction(x_or_o, lambda x, y: self.convert(y, x))
     
-    def _check_diagonal(self, x_or_o):
+    def _check_diagonal(self, x_or_o, index_fn):
         """
         Checks if a specific player has won with a diagonal win
         Parameters
@@ -118,10 +118,8 @@ class Board:
         values_rtl = set()
         values_ltr = set()
         for row in range(0, board_width):
-            index_rtl = self.convert(row, row)
-            index_ltr = self.convert(row, (-row + 2))
+            index_rtl = index_fn(row, row)
             values_rtl.add(self.values[index_rtl])
-            values_ltr.add(self.values[index_ltr])
             if len(values_rtl) == 1:
                 if x_or_o == list(values_rtl)[0]:
                     winner = True
@@ -129,16 +127,11 @@ class Board:
             else:
                 winner = False
 
-            if len(values_ltr) == 1 and winner == False:
-                if x_or_o == list(values_ltr)[0]:
-                    winner = True
-                    return winner
-                else:
-                    winner = False
-            else:
-                winner = False
-
         return winner
+    
+    def _check_diagonal_rtl(self, x_or_o):
+        return self.convert_abstraction(x_or_o, lambda x, y: self.convert(row, row))
+
 
     def check_winner(self, x_or_o):
         if self._check_column(x_or_o) == True:
