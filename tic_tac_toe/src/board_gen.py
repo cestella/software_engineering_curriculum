@@ -116,9 +116,8 @@ class Board:
         board_width = self.dim
         winner = None
         values_rtl = set()
-        values_ltr = set()
         for row in range(0, board_width):
-            index_rtl = index_fn(row, row)
+            index_rtl = index_fn(row)
             values_rtl.add(self.values[index_rtl])
             if len(values_rtl) == 1:
                 if x_or_o == list(values_rtl)[0]:
@@ -130,15 +129,19 @@ class Board:
         return winner
     
     def _check_diagonal_rtl(self, x_or_o):
-        return self.convert_abstraction(x_or_o, lambda x, y: self.convert(row, row))
+        return self._check_diagonal(x_or_o, lambda x: self.convert(x, x))
 
-
+    def _check_diagonal_ltr(self, x_or_o):
+        return self._check_diagonal(x_or_o, lambda x: self.convert(x, (-x + 2)))
+    
     def check_winner(self, x_or_o):
         if self._check_column(x_or_o) == True:
             return True
         elif self._check_row(x_or_o) == True:
             return True
-        elif self._check_diagonal(x_or_o) == True:
+        elif self._check_diagonal_rtl(x_or_o) == True:
+            return True
+        elif self._check_diagonal_ltr(x_or_o) == True:
             return True
         else:
             return False 
