@@ -106,7 +106,7 @@ def test_x_none_o_diag():
     board.values[board.convert(1, 1)] = None
     board.values[board.convert(2, 2)] = "O"
 
-    assert board.check_winner("X") == True
+    assert board.check_winner("X") == False
 
 
 def test_x_o_x_diag():

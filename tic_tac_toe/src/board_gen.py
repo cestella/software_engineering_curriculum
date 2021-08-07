@@ -114,14 +114,12 @@ class Board:
 
         # Check of someone has won
         board_width = self.dim
-        values2 = 0
+        winner = None
         values_rtl = set()
         for row in range(0, board_width):
             index_rtl = index_fn(row)
-            if self.values[index] != "None":
-                values_rtl.add(self.values[index_rtl])
-                values2 += 1
-            if len(values_rtl) == 1 and values2 == 3:
+            values_rtl.add(self.values[index_rtl])
+            if len(values_rtl) == 1:
                 if x_or_o == list(values_rtl)[0]:
                     winner = True
                     return winner
