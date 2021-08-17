@@ -8,7 +8,9 @@ class Board:
 
         self.dim = dim
 
-        self.template = ("|{}|{}|{}\n-------\n" * int(self.dim - 1)) + "|{}"*int(self.dim-1)
+        self.template = ("|{}|{}|{}\n-------\n" * int(self.dim - 1)) + "|{}" * int(
+            self.dim - 1
+        )
 
     def convert(self, x, y):
         """
@@ -85,11 +87,11 @@ class Board:
                 index = self.convert(row, col)
                 if self.values[index] is not None:
                     values.add(self.values[index])
-            
+
             if len(values) == 1:
                 if x_or_o == next(iter(values)):
                     return True
-        return False 
+        return False
 
     def _check_row(self, x_or_o):
         """

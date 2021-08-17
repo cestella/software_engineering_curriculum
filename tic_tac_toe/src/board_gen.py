@@ -7,8 +7,10 @@ class Board:
         self.values = [None] * dim ** 2
 
         self.dim = dim
-        
-        self.template = ("|{}|{}|{}\n-------\n" * int(self.dim - 1)) + "|{}"*int(self.dim-1)
+
+        self.template = ("|{}|{}|{}\n-------\n" * int(self.dim - 1)) + "|{}" * int(
+            self.dim - 1
+        )
 
     def render_board(self):
         """
@@ -75,19 +77,17 @@ class Board:
         """
         board_width = self.dim
         winner = None
-       
         for i in range(0, board_width):
             values = set()
             for j in range(0, board_width):
                 index = index_fn(i, j)
                 values.add(self.values[index])
-                print(self.values[index])            
             if len(values) == 1:
                 if x_or_o == next(iter(values)):
                     winner = True
+                    return winner
             else:
                 winner = False
-
         return winner
 
     def _check_column(self, x_or_o):
@@ -95,7 +95,7 @@ class Board:
 
     def _check_row(self, x_or_o):
         return self.convert_abstraction(x_or_o, lambda x, y: self.convert(y, x))
-    
+
     def _check_diagonal(self, x_or_o, index_fn):
         """
         Checks if a specific player has won with a diagonal win
@@ -116,30 +116,32 @@ class Board:
         board_width = self.dim
         winner = None
         values_rtl = set()
+        values_list = []
         for row in range(0, board_width):
             index_rtl = index_fn(row)
             values_rtl.add(self.values[index_rtl])
-            if len(values_rtl) == 1:
+            values_list.append(self.values[index_rtl])
+            if len(values_rtl) == 1 and len(values_list) == 3:
                 if x_or_o == list(values_rtl)[0]:
                     winner = True
                     return winner
-            else:
-                winner = False
 
         return winner
-    
+
     def _check_diagonal_rtl(self, x_or_o):
         return self._check_diagonal(x_or_o, lambda x: self.convert(x, x))
 
     def _check_diagonal_ltr(self, x_or_o):
         return self._check_diagonal(x_or_o, lambda x: self.convert(x, (-x + 2)))
-    
+
     def check_winner(self, x_or_o):
         if self._check_column(x_or_o) == True:
             return True
         elif self._check_row(x_or_o) == True:
             return True
-        elif self._check_diagonal_rtl(x_or_o) == True and self._check_diagonal_ltr(x_or_o) == True:
+        elif self._check_diagonal_rtl(x_or_o) == True:
+            return True
+        elif self._check_diagonal_ltr(x_or_o) == True:
             return True
         else:
-            return False 
+            return False
